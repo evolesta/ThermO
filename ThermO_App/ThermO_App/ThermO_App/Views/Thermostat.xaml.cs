@@ -33,10 +33,10 @@ namespace ThermO_App.Views
             var httpRequest = new HttpRequest();
             var response = httpRequest.GetSingle("/heatpoint/"); // make the GET request to the back-end
 
-            currentTemp = Double.Parse(response["temperature"], CultureInfo.InvariantCulture); // sets the current temperature
+            currentTemp = Double.Parse(response["temperature"], new CultureInfo("en-US")); // sets the current temperature
             currentTempLabel.Text = currentTemp.ToString() + " °C"; // sets the text on the label
 
-            desiredTemp = Double.Parse(response["heatpoint"], CultureInfo.InvariantCulture); // sets the desired temperature
+            desiredTemp = Double.Parse(response["heatpoint"], new CultureInfo("en-US")); // sets the desired temperature
             desiredTempLabel.Text = desiredTemp.ToString() + " °C"; // sets the text on the label
             desiredTempStepper.Value = desiredTemp; // sets value to stepper so the user can iteract with the temperature
         }
@@ -56,8 +56,8 @@ namespace ThermO_App.Views
 
             // generate dictionary for body paramters
             Dictionary<string, string> bodyParams = new Dictionary<string, string>();
-            bodyParams.Add("heatpoint", desiredTemp.ToString());
-            bodyParams.Add("temperature", currentTemp.ToString());
+            bodyParams.Add("heatpoint", desiredTemp.ToString().Replace(",", "."));
+            bodyParams.Add("temperature", currentTemp.ToString().Replace(",", "."));
 
             httpRequest.Put("/heatpoint/1/", bodyParams); // make PUT request to the back-end
 

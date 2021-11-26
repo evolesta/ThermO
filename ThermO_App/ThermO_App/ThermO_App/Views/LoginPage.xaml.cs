@@ -17,7 +17,7 @@ namespace ThermO_App.Views
         {
             InitializeComponent();
 
-            checkIfTokenIsValid(); // call async void if tokens are still valid within properties
+            loginWithPincode();
         }
 
         protected override bool OnBackButtonPressed()
@@ -36,36 +36,54 @@ namespace ThermO_App.Views
             }
             else
             {
-                // try to login user with pincode if it has been set to properties
-                if (Application.Current.Properties.ContainsKey("pincode"))
+                // obtain a new set of tokens
+                var username = Application.Current.Properties["username"].ToString();
+                var password = Application.Current.Properties["password"].ToString();
+                performLogin(username, password);
+            }
+        }
+
+        private async void loginWithPincode()
+        {
+            // try to login user with pincode if it has been set to properties
+            if (Application.Current.Properties.ContainsKey("pincode"))
+            {
+                int counter = 0; // counter for max. 3 retries
+                
+                while (counter < 3)
                 {
-                    // max 3 retries
-                    for (int i = 0; i < 3; i++)
+                    var pin = await DisplayPromptAsync("Voer pincode in", "Voer je persoonlijke pincode in:", maxLength: 4, keyboard: Keyboard.Numeric);
+
+                    // validate for empty string
+                    if (string.IsNullOrEmpty(pin))
                     {
-                        var pin = await DisplayPromptAsync("Voer pincode in", "Voer je persoonlijke pincode in:", maxLength: 4, keyboard: Keyboard.Numeric);
-
-                        // validate for empty string
-                        if (string.IsNullOrEmpty(pin))
-                        {
-                            await DisplayAlert("Pincode leeg", "Het ingevoerde veld is leeg. Probeer opnieuw! Poging " + i.ToString(), "OK");
-                            continue; // go to next try
-                        }
-
-                        // validate for correct pin in properties
-                        if (pin != Application.Current.Properties["pincode"].ToString())
-                        {
-                            await DisplayAlert("Pincode onjuist", "De ingevoerde pincode is onjuist. Probeer opnieuw! Poging " + i.ToString(), "OK");
-                            continue; // go to next try
-                        }
-
-                        // pincode is correct
-                        var username = Application.Current.Properties["username"].ToString();
-                        var password = Application.Current.Properties["password"].ToString();
-
-                        if (performLogin(username, password))
-                            await Shell.Current.GoToAsync("//thermostat"); 
+                        counter++; // increase attempt
+                        await DisplayAlert("Pincode leeg", "Het ingevoerde veld is leeg. Probeer opnieuw! Poging " + counter.ToString(), "OK");
+                        continue; // go to next try
                     }
+
+                    // validate for correct pin in properties
+                    if (pin != Application.Current.Properties["pincode"].ToString())
+                    {
+                        counter++; // increase attempt
+                        await DisplayAlert("Pincode onjuist", "De ingevoerde pincode is onjuist. Probeer opnieuw! Poging " + counter.ToString(), "OK");
+                        continue; // go to next try
+                    }
+
+                    // pincode is correct, let's check tokens
+                    checkIfTokenIsValid();
+                    break; // escape from loop
                 }
+
+                // navigate user to secured area if counter hasn't passed 3 attempts
+                if (counter < 3)
+                {
+                    await Shell.Current.GoToAsync("//thermostat");
+                    return;
+                }
+
+                // let user login again with credentials
+                await DisplayAlert("Pincode fout", "Maximum aantal pogingen bereikt. Probeer in te loggen.", "OK");
             }
         }
 
@@ -110,6 +128,8 @@ namespace ThermO_App.Views
 
                 break; // break out of loop
             }
+
+            await Shell.Current.GoToAsync("//thermostat"); // redirect user to secured pages
         }
 
         /// <summary>
@@ -157,7 +177,6 @@ namespace ThermO_App.Views
             }
 
             activatePincode(username, password); // let user set personal pincode
-            await Shell.Current.GoToAsync("//thermostat"); // redirect user to secured pages
         }
     }
 }

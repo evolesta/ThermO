@@ -105,13 +105,16 @@ namespace ThermO_App.Classes
 
             var response = client.Post(request); // make POST request
 
-            if (Convert.ToInt32(response.StatusCode) != 200)
+            if (!response.IsSuccessful)
             { 
                 throw new Exception("Request has failed: " + response.Content);
             }
 
             var jsonData = JsonConvert.DeserializeObject<Dictionary<string, string>>(response.Content);
 
+            Application.Current.Properties.Remove("accessToken");
+            Application.Current.Properties.Remove("refreshToken");
+            Application.Current.Properties.Remove("tokenReceived");
             Application.Current.Properties.Add("accessToken", jsonData["access"]);
             Application.Current.Properties.Add("refreshToken", jsonData["refresh"]);
             Application.Current.Properties.Add("tokenReceived", DateTime.Now);
