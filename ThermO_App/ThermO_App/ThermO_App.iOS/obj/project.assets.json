@@ -1120,11 +1120,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\repos\\IoT - ThermO\\ThermO_App\\ThermO_App\\ThermO_App.iOS\\ThermO_App.iOS.csproj",
+      "projectUniqueName": "C:\\repos\\IoT - ThermO- Repository\\ThermO_App\\ThermO_App\\ThermO_App.iOS\\ThermO_App.iOS.csproj",
       "projectName": "ThermO_App.iOS",
-      "projectPath": "C:\\repos\\IoT - ThermO\\ThermO_App\\ThermO_App\\ThermO_App.iOS\\ThermO_App.iOS.csproj",
+      "projectPath": "C:\\repos\\IoT - ThermO- Repository\\ThermO_App\\ThermO_App\\ThermO_App.iOS\\ThermO_App.iOS.csproj",
       "packagesPath": "C:\\Users\\erik\\.nuget\\packages\\",
-      "outputPath": "C:\\repos\\IoT - ThermO\\ThermO_App\\ThermO_App\\ThermO_App.iOS\\obj\\",
+      "outputPath": "C:\\repos\\IoT - ThermO- Repository\\ThermO_App\\ThermO_App\\ThermO_App.iOS\\obj\\",
       "projectStyle": "PackageReference",
       "skipContentFileWrite": true,
       "fallbackFolders": [
@@ -1145,8 +1145,8 @@
       "frameworks": {
         "xamarinios10": {
           "projectReferences": {
-            "C:\\repos\\IoT - ThermO\\ThermO_App\\ThermO_App\\ThermO_App\\ThermO_App.csproj": {
-              "projectPath": "C:\\repos\\IoT - ThermO\\ThermO_App\\ThermO_App\\ThermO_App\\ThermO_App.csproj"
+            "C:\\repos\\IoT - ThermO- Repository\\ThermO_App\\ThermO_App\\ThermO_App\\ThermO_App.csproj": {
+              "projectPath": "C:\\repos\\IoT - ThermO- Repository\\ThermO_App\\ThermO_App\\ThermO_App\\ThermO_App.csproj"
             }
           }
         }

@@ -28,12 +28,12 @@ namespace ThermO_App.Classes
                 var difference = currentDateTime.Subtract(retrievedDateTime); // calculate difference between current date and token receive date
 
                 // check if the difference is lower then 30 minutes
-                if (difference.Minutes < 30)
+                if (difference.TotalMinutes < settings.AccessTokenLifetime)
                 {
                     return true; // token is still valid
                 }
                 // check if refresh token is still valid
-                else if (difference.Days < 7)
+                else if (difference.TotalMinutes < settings.RefreshTokenLifeTime)
                 {
                     // obtain a new access token using refresh
                     if (refreshToken())

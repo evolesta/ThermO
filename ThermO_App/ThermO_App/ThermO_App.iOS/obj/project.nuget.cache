@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "G8Qam9YEi2mnMVnXFddS+p5Yh0cdf5fBHuDC9zTTbUghSkjRkRBj9RZbIl/vu0HGY2GC1Gpjs5YGpGH3gWreRQ==",
+  "dgSpecHash": "AzayIwucLI6QqQmlCXsguSuEH45oCqkbaO2AixtLRmJTYv7yLASF5f12J9IYtMjafAlUMO5lp5SU1avHVcDaZA==",
   "success": true,
-  "projectFilePath": "C:\\repos\\IoT - ThermO\\ThermO_App\\ThermO_App\\ThermO_App.iOS\\ThermO_App.iOS.csproj",
+  "projectFilePath": "C:\\repos\\IoT - ThermO- Repository\\ThermO_App\\ThermO_App\\ThermO_App.iOS\\ThermO_App.iOS.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\erik\\.nuget\\packages\\newtonsoft.json\\13.0.1\\newtonsoft.json.13.0.1.nupkg.sha512",
     "C:\\Users\\erik\\.nuget\\packages\\restsharp\\106.13.0\\restsharp.106.13.0.nupkg.sha512",

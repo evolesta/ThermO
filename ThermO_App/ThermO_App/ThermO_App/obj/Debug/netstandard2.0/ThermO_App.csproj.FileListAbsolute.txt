@@ -17,3 +17,22 @@ C:\repos\IoT - ThermO\ThermO_App\ThermO_App\ThermO_App\obj\Debug\netstandard2.0\
 C:\repos\IoT - ThermO\ThermO_App\ThermO_App\ThermO_App\obj\Debug\netstandard2.0\Views\Settings.xaml.g.cs
 C:\repos\IoT - ThermO\ThermO_App\ThermO_App\ThermO_App\obj\Debug\netstandard2.0\ThermO_App.csproj.AssemblyReference.cache
 C:\repos\IoT - ThermO\ThermO_App\ThermO_App\ThermO_App\obj\Debug\netstandard2.0\Views\Schedule.xaml.g.cs
+C:\repos\IoT - ThermO- Repository\ThermO_App\ThermO_App\ThermO_App\bin\Debug\netstandard2.0\ThermO_App.deps.json
+C:\repos\IoT - ThermO- Repository\ThermO_App\ThermO_App\ThermO_App\bin\Debug\netstandard2.0\ThermO_App.dll
+C:\repos\IoT - ThermO- Repository\ThermO_App\ThermO_App\ThermO_App\bin\Debug\netstandard2.0\ref\ThermO_App.dll
+C:\repos\IoT - ThermO- Repository\ThermO_App\ThermO_App\ThermO_App\bin\Debug\netstandard2.0\ThermO_App.pdb
+C:\repos\IoT - ThermO- Repository\ThermO_App\ThermO_App\ThermO_App\obj\Debug\netstandard2.0\ThermO_App.csproj.AssemblyReference.cache
+C:\repos\IoT - ThermO- Repository\ThermO_App\ThermO_App\ThermO_App\obj\Debug\netstandard2.0\ThermO_App.GeneratedMSBuildEditorConfig.editorconfig
+C:\repos\IoT - ThermO- Repository\ThermO_App\ThermO_App\ThermO_App\obj\Debug\netstandard2.0\App.xaml.g.cs
+C:\repos\IoT - ThermO- Repository\ThermO_App\ThermO_App\ThermO_App\obj\Debug\netstandard2.0\AppShell.xaml.g.cs
+C:\repos\IoT - ThermO- Repository\ThermO_App\ThermO_App\ThermO_App\obj\Debug\netstandard2.0\Views\LoginPage.xaml.g.cs
+C:\repos\IoT - ThermO- Repository\ThermO_App\ThermO_App\ThermO_App\obj\Debug\netstandard2.0\Views\Schedule.xaml.g.cs
+C:\repos\IoT - ThermO- Repository\ThermO_App\ThermO_App\ThermO_App\obj\Debug\netstandard2.0\Views\Settings.xaml.g.cs
+C:\repos\IoT - ThermO- Repository\ThermO_App\ThermO_App\ThermO_App\obj\Debug\netstandard2.0\Views\Thermostat.xaml.g.cs
+C:\repos\IoT - ThermO- Repository\ThermO_App\ThermO_App\ThermO_App\obj\Debug\netstandard2.0\ThermO_App.AssemblyInfoInputs.cache
+C:\repos\IoT - ThermO- Repository\ThermO_App\ThermO_App\ThermO_App\obj\Debug\netstandard2.0\ThermO_App.AssemblyInfo.cs
+C:\repos\IoT - ThermO- Repository\ThermO_App\ThermO_App\ThermO_App\obj\Debug\netstandard2.0\ThermO_App.csproj.CoreCompileInputs.cache
+C:\repos\IoT - ThermO- Repository\ThermO_App\ThermO_App\ThermO_App\obj\Debug\netstandard2.0\XamlC.stamp
+C:\repos\IoT - ThermO- Repository\ThermO_App\ThermO_App\ThermO_App\obj\Debug\netstandard2.0\ThermO_App.dll
+C:\repos\IoT - ThermO- Repository\ThermO_App\ThermO_App\ThermO_App\obj\Debug\netstandard2.0\ref\ThermO_App.dll
+C:\repos\IoT - ThermO- Repository\ThermO_App\ThermO_App\ThermO_App\obj\Debug\netstandard2.0\ThermO_App.pdb

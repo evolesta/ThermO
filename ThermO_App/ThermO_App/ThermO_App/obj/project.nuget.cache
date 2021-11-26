@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "w4L+IKFfnoMY7uqbhvnzb+EkjqlckBQe3j+nnIrk8O34fQmqFPspp3UnHZm3J/X52Fws0D5xYc8MnFAxT/1+fg==",
+  "dgSpecHash": "iOuSpq0bcdCFj5qm/IYXnDHmK17h9osyX5uXmp3Nl+b7mhKjFJssIA2S+rry3o2iFv3WThBTM0KWqo+pKAG6FA==",
   "success": true,
-  "projectFilePath": "C:\\repos\\IoT - ThermO\\ThermO_App\\ThermO_App\\ThermO_App\\ThermO_App.csproj",
+  "projectFilePath": "C:\\repos\\IoT - ThermO- Repository\\ThermO_App\\ThermO_App\\ThermO_App\\ThermO_App.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\erik\\.nuget\\packages\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
     "C:\\Users\\erik\\.nuget\\packages\\netstandard.library\\2.0.3\\netstandard.library.2.0.3.nupkg.sha512",
