@@ -1,4 +1,5 @@
 from datetime import date
+from typing import Set
 from django.db.models import query
 from django.shortcuts import get_object_or_404, render
 
@@ -53,3 +54,24 @@ class ScheduleViewSet(viewsets.ModelViewSet):
     queryset = Schedule.objects.all()
     serializer_class = ScheduleSerializer
     permission_classes = [IsAuthenticated]
+
+class SettingViewSet(viewsets.ViewSet):
+    permission_classes = [IsAuthenticated]
+
+    def list(self, request, pk=1):
+        queryset = Setting.objects.all()
+        data = get_object_or_404(queryset, pk=1)
+        serializer = SettingSerializer(data)
+        return Response(serializer.data)
+
+    def update(self, request, pk=1):
+        data = Setting.objects.get(pk=1)
+        serializer = SettingSerializer(data=request.data)
+
+        if serializer.is_valid():
+            data.activeBoiler = serializer.validated_data['activeBoiler']
+            data.defaultBoilerTemp = serializer.validated_data['defaultBoilerTemp']
+            data.save()
+            return Response({'status': 'OK'})
+        else:
+            return Response(serializer.errors)

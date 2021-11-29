@@ -1,6 +1,10 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\ThermO_App",
+    "\\ThermO_App\\ThermO_App",
+    "\\ThermO_App\\ThermO_App\\Classes",
+    "\\ThermO_App\\ThermO_App\\Views"
   ],
   "SelectedNode": "\\ThermO_App.sln",
   "PreviewInSolutionExplorer": false

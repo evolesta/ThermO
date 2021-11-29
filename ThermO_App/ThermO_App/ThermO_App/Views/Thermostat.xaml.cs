@@ -32,11 +32,12 @@ namespace ThermO_App.Views
         {
             var httpRequest = new HttpRequest();
             var response = httpRequest.GetSingle("/heatpoint/"); // make the GET request to the back-end
+            var cultureInfo = new CultureInfo("en-US");
 
-            currentTemp = Double.Parse(response["temperature"], new CultureInfo("en-US")); // sets the current temperature
+            currentTemp = double.Parse(response["temperature"], cultureInfo); // sets the current temperature
             currentTempLabel.Text = currentTemp.ToString() + " °C"; // sets the text on the label
 
-            desiredTemp = Double.Parse(response["heatpoint"], new CultureInfo("en-US")); // sets the desired temperature
+            desiredTemp = double.Parse(response["heatpoint"], cultureInfo); // sets the desired temperature
             desiredTempLabel.Text = desiredTemp.ToString() + " °C"; // sets the text on the label
             desiredTempStepper.Value = desiredTemp; // sets value to stepper so the user can iteract with the temperature
         }
@@ -50,14 +51,20 @@ namespace ThermO_App.Views
         /// <summary>
         /// Sends the new desired temperature to the back-end
         /// </summary>
+      
+        // TODO: fix double issue with round values displaying 20.0 instead of 20 
         private async void Button_Clicked(object sender, EventArgs e)
         {
             var httpRequest = new HttpRequest(); // new http object
 
             // generate dictionary for body paramters
             Dictionary<string, string> bodyParams = new Dictionary<string, string>();
-            bodyParams.Add("heatpoint", desiredTemp.ToString().Replace(",", "."));
-            bodyParams.Add("temperature", currentTemp.ToString().Replace(",", "."));
+            string desiredTempString = desiredTemp.ToString().Replace(",", ".");
+            string currentTempString = currentTemp.ToString().Replace(",", ".");
+            desiredTempString = string.Format("{0:0.00}", desiredTempString);
+            currentTempString = string.Format("{0:0.00}", currentTempString);
+            bodyParams.Add("temperature", currentTempString);
+            bodyParams.Add("heatpoint", desiredTempString);
 
             httpRequest.Put("/heatpoint/1/", bodyParams); // make PUT request to the back-end
 

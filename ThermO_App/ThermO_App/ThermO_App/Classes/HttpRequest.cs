@@ -64,8 +64,16 @@ namespace ThermO_App.Classes
             var client = new RestClient(settings.getBackendURL + "/api/token/refresh/");
             var request = new RestRequest(Method.POST);
             request.AddParameter("refresh", refreshToken); // add refresh token to body
+            IRestResponse response; // init empty response
 
-            var response = client.Post(request); // make POST request
+            try
+            {
+                response = client.Post(request); // make POST request
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Request has failed: " + ex);
+            }
 
             if (response.IsSuccessful)
             {
@@ -135,14 +143,23 @@ namespace ThermO_App.Classes
             request.AddHeader("Authorization", "Bearer " + Application.Current.Properties["accessToken"]);
             request.AddHeader("Cache-control", "no-cache");
             request.AddHeader("Content-Type", "application/json");
+            IRestResponse response; // init empty response
 
-            var response = client.Get(request);
+            try
+            {
+                response = client.Get(request);
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception("Request has failed: " + ex);
+            }
 
             // only return data is response is succesful
             if (response.IsSuccessful)
                 return JsonConvert.DeserializeObject<List<Dictionary<string, string>>>(response.Content);
             else
-                throw new Exception("Request has failed: " + response.Content);
+                return null;
         }
 
         /// <summary>
@@ -159,13 +176,21 @@ namespace ThermO_App.Classes
             request.AddHeader("Authorization", "Bearer " + Application.Current.Properties["accessToken"]);
             request.AddHeader("Cache-control", "no-cache");
             request.AddHeader("Content-Type", "application/json");
+            IRestResponse response; // init empty response
 
-            var response = client.Get(request); // make GET request
+            try
+            {
+                response = client.Get(request); // make GET request
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Request has failed: " + ex);
+            }
 
             if (response.IsSuccessful)
                 return JsonConvert.DeserializeObject<Dictionary<string, string>>(response.Content);
             else
-                throw new Exception("Request has failed: " + response.Content);
+                return null;
         }
 
         public Dictionary<string, string> Put(string endpoint,
@@ -178,6 +203,7 @@ namespace ThermO_App.Classes
             request.AddHeader("Authorization", "Bearer " + Application.Current.Properties["accessToken"]);
             request.AddHeader("Cache-control", "no-cache");
             request.AddHeader("Content-Type", "application/json");
+            IRestResponse response; // init empty response
 
             // check if there are any body paramters set, if so, iterate and add each parameter to the request
             if (bodyParams.Count > 0)
@@ -188,12 +214,19 @@ namespace ThermO_App.Classes
                 }
             }
 
-            var response = client.Put(request); // make PUT request
+            try
+            {
+                response = client.Put(request); // make PUT request
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Request has failed: " + ex);
+            }
 
             if (response.IsSuccessful)
                 return JsonConvert.DeserializeObject<Dictionary<string, string>>(response.Content);
             else
-                throw new Exception("Request has failed: " + response.Content);
+                return null;
         }
     }
 }

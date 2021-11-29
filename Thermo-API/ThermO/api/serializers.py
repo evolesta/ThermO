@@ -26,3 +26,8 @@ class ScheduleSerializer(serializers.ModelSerializer):
     class Meta:
         model = Schedule
         fields = ('weekday', 'time', 'temperature')
+
+class SettingSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Setting
+        fields = ('activeBoiler', 'defaultBoilerTemp')
