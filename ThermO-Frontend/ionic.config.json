@@ -1,0 +1,7 @@
+{
+  "name": "ThermO-Frontend",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
