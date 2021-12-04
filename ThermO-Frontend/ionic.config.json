@@ -1,7 +1,8 @@
 {
   "name": "ThermO-Frontend",
   "integrations": {
-    "capacitor": {}
+    "capacitor": {},
+    "cordova": {}
   },
   "type": "angular"
 }

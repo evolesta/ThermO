@@ -6,4 +6,21 @@
 
 <ion-content>
 
+  <ion-item>
+    <ion-label>Huidige temperatuur:</ion-label>
+    <ion-text><h1>{{currentTemperature}} °C</h1></ion-text>
+  </ion-item>
+
+  <ion-item>
+    <ion-label>Gewenste temperatuur:</ion-label>
+    <ion-text><h1><b>{{desiredTemperature}} °C</b></h1></ion-text>
+  </ion-item>
+
+  <ion-item>
+    <ion-icon slot="start" size="small" name="thermometer" color="secondary"></ion-icon>
+    <ion-icon slot="end" size="small" name="flame" color="danger"></ion-icon>
+    <ion-range dualKnobs="true" min="15" max="25" step="0.5" snaps="true" color="danger" dualKnobs="false" value="{{ desiredTemperature }}"
+    (ionChange)="setTemperature($event)"></ion-range>
+  </ion-item>
+
 </ion-content>
