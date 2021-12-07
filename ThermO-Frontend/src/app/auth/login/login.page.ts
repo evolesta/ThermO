@@ -16,9 +16,6 @@ export class LoginPage implements OnInit {
 
   ngOnInit() {
     this.menu.enable(false);
-
-    // if user has a valid token, redirect to secured area
-    (this.auth.isStillValid()) && this.router.navigate(['/thermostat']);
   }
 
   // perform login action at back-end

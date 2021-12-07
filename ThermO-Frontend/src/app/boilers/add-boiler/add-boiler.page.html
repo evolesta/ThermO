@@ -1,0 +1,32 @@
+<ion-header>
+  <ion-toolbar color="tertiary">
+    <ion-title>Ketel toevoegen</ion-title>
+
+    <ion-fab horizontal="end" vertical="center">
+      <ion-fab-button size="small" color="tertiary" (click)="dismissModal()">
+        <ion-icon name="close"></ion-icon>
+      </ion-fab-button>
+    </ion-fab>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <p>Voeg een nieuwe CV ketel toe. Specificeer het IP adres van de (Arduino) controller.</p>
+
+<form #addBoilerForm="ngForm" (ngSubmit)="addBoiler(addBoilerForm.value)">
+
+  <ion-list lines="full">
+    <ion-item>
+      <ion-input name="name" placeholder="Naam" ngModel></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-input name="ipAddress" placeholder="IP Adres" ngModel></ion-input>
+    </ion-item>
+  </ion-list>
+
+  <ion-button color="primary" type="submit"><ion-icon name="save"></ion-icon> Opslaan</ion-button>
+
+</form>
+
+</ion-content>

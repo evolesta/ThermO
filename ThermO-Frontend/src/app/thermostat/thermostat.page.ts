@@ -16,6 +16,7 @@ export class ThermostatPage implements OnInit {
 
   ngOnInit() {
     this.menu.enable(true); // enable menu for redirects from login
+    this.menu.swipeGesture(true);
     this.getTemperatures();
   }
 
@@ -34,5 +35,18 @@ export class ThermostatPage implements OnInit {
   {
     // get new value from slider
     this.desiredTemperature = event.target.value;
+  }
+
+  updateTemperature(event)
+  {
+    console.log('Zet volgende naar api' + event.target.value);
+
+    const body = {
+      'heatpoint': event.target.value,
+    };
+
+    this.http.put('/heatpoint/1/', body).subscribe(response => {
+      console.log(response);
+    });
   }
 }
