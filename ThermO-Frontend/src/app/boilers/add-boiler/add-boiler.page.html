@@ -19,13 +19,15 @@
   <ion-list lines="full">
     <ion-item>
       <ion-input name="name" placeholder="Naam" ngModel></ion-input>
+      <ion-note>Weergavenaam voor de ketel binnen de applicatie</ion-note>
     </ion-item>
     <ion-item>
-      <ion-input name="ipAddress" placeholder="IP Adres" ngModel></ion-input>
+      <ion-input name="boilerAddress" placeholder="IP-Adres" ngModel></ion-input>
+      <ion-note>Het IP-adres van de ketel die bestuurd moet worden</ion-note>
     </ion-item>
   </ion-list>
 
-  <ion-button color="primary" type="submit"><ion-icon name="save"></ion-icon> Opslaan</ion-button>
+  <ion-button color="primary" type="submit"><ion-icon name="add"></ion-icon>&nbsp;Toevoegen</ion-button>
 
 </form>
 

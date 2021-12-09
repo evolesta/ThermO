@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
-import { DeleteBoilerPage } from './delete-boiler.page';
+import { AddThermostatPage } from './add-thermostat.page';
 
-describe('DeleteBoilerPage', () => {
-  let component: DeleteBoilerPage;
-  let fixture: ComponentFixture<DeleteBoilerPage>;
+describe('AddThermostatPage', () => {
+  let component: AddThermostatPage;
+  let fixture: ComponentFixture<AddThermostatPage>;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ DeleteBoilerPage ],
+      declarations: [ AddThermostatPage ],
       imports: [IonicModule.forRoot()]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(DeleteBoilerPage);
+    fixture = TestBed.createComponent(AddThermostatPage);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));

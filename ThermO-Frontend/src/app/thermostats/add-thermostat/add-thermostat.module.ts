@@ -4,17 +4,17 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { DeleteBoilerPageRoutingModule } from './delete-boiler-routing.module';
+import { AddThermostatPageRoutingModule } from './add-thermostat-routing.module';
 
-import { DeleteBoilerPage } from './delete-boiler.page';
+import { AddThermostatPage } from './add-thermostat.page';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    DeleteBoilerPageRoutingModule
+    AddThermostatPageRoutingModule
   ],
-  declarations: [DeleteBoilerPage]
+  declarations: [AddThermostatPage]
 })
-export class DeleteBoilerPageModule {}
+export class AddThermostatPageModule {}

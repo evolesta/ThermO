@@ -10,12 +10,12 @@ class SensorsSerializer(serializers.HyperlinkedModelSerializer):
 class BoilersSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Boiler
-        fields = ('name', 'boilerAddress')
+        fields = ('name', 'boilerAddress', 'id')
 
 class HoneywellSensorsSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = HoneywellSensor
-        fields = ('name', 'locationId', 'deviceId', 'active')
+        fields = ('name', 'locationId', 'deviceId', 'active', 'id')
 
 class HeatpointSerializer(serializers.ModelSerializer):
     class Meta:
@@ -25,7 +25,7 @@ class HeatpointSerializer(serializers.ModelSerializer):
 class ScheduleSerializer(serializers.ModelSerializer):
     class Meta:
         model = Schedule
-        fields = ('weekday', 'time', 'temperature')
+        fields = ('weekday', 'time', 'temperature', 'id')
 
 class SettingSerializer(serializers.ModelSerializer):
     class Meta:

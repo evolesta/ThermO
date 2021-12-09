@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { DeleteBoilerPage } from './delete-boiler.page';
+import { AddThermostatPage } from './add-thermostat.page';
 
 const routes: Routes = [
   {
     path: '',
-    component: DeleteBoilerPage
+    component: AddThermostatPage
   }
 ];
 
@@ -14,4 +14,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class DeleteBoilerPageRoutingModule {}
+export class AddThermostatPageRoutingModule {}

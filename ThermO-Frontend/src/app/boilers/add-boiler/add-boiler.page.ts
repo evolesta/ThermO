@@ -21,7 +21,9 @@ export class AddBoilerPage implements OnInit {
   dismissModal()
   {
     // close modal
-    this.modalController.dismiss();
+    this.modalController.dismiss({
+      success: false
+    });
   }
 
   // submit new boiler to API
@@ -37,10 +39,19 @@ export class AddBoilerPage implements OnInit {
 
   async displaySucces()
   {
-    const alert = await alertController.create({
+    const alert = await this.alertController.create({
       header: 'Ketel toegevoegd',
       message: 'De nieuwe CV ketel is succesvol toegevoegd.',
-      buttons: ['OK']
+      buttons: [
+        {
+          text: 'OK',
+          handler: () => {
+            this.modalController.dismiss({
+              'success': true
+            });
+          }
+        }
+      ],
     });
 
     await alert.present(); // show alert

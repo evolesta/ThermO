@@ -15,10 +15,6 @@ const routes: Routes = [
   {
     path: 'edit-boiler',
     loadChildren: () => import('./edit-boiler/edit-boiler.module').then( m => m.EditBoilerPageModule)
-  },
-  {
-    path: 'delete-boiler',
-    loadChildren: () => import('./delete-boiler/delete-boiler.module').then( m => m.DeleteBoilerPageModule)
   }
 ];
 

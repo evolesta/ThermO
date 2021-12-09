@@ -1,41 +1,58 @@
 // JWT interceptor
 import { Injectable } from '@angular/core';
 import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor, HttpErrorResponse } from '@angular/common/http';
-import { from, Observable, throwError } from 'rxjs';
+import { EMPTY, from, Observable, throwError } from 'rxjs';
 import { catchError, switchMap } from 'rxjs/operators'
 import { AuthService } from './login/auth.service';
 import { StorageService } from '../storage.service';
-import { APIURL } from '../settings';
 import { Router } from '@angular/router';
+import { JwtHelperService } from '@auth0/angular-jwt';
+import { APIURL } from '../settings';
 
 
 @Injectable()
 export class httpInterceptor implements HttpInterceptor {
 
-    constructor(private auth: AuthService,
-        private storage: StorageService,
+    // routes which doesn't require a auth header, for ex. auth routes
+    private disallowedRoutes = [
+        APIURL + '/api/token/',
+        APIURL + '/api/token/refresh/'
+    ];
+
+    constructor(private storage: StorageService,
         private router: Router) 
         { }
-
-        private handleAuthError(error: HttpErrorResponse): Observable<any>
-        {
-            if (error.status == 401)
-            {   
-                this.router.navigate['/login'];
-            }
-            return throwError(error);
-        }
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         // add auth token from storage
         return from(this.storage.get('accessToken')).pipe(switchMap(token => {
-            request = request.clone({
-                headers: request.headers.set(
-                    'Authorization', 'Bearer ' + token,
-                )});
 
-            // return manipulated response
-            return next.handle(request).pipe(catchError(err => this.handleAuthError(err)));
+            // using the JWT helper as object
+            const jwtHelper = new JwtHelperService();
+
+            // check if we are not intercepting a disallowed route
+            if (!this.disallowedRoutes.includes(request.url))
+            {
+                // intercepting a secured route - check if token is still valid
+                if (!jwtHelper.isTokenExpired(token))
+                {
+                    // token is still valid - add auth to headers
+                    request = request.clone({
+                        headers: request.headers.set(
+                            'Authorization', 'Bearer ' + token,
+                        )
+                    });
+                }
+                else
+                {
+                    // token is expired - cancel request and redirect to login page
+                    this.router.navigate(['/login']);
+                    return EMPTY;
+                }
+            }
+
+            // return (manipulated) request
+            return next.handle(request);
         }));
     }
 }

@@ -19,6 +19,10 @@ const routes: Routes = [
     path: 'boilers',
     loadChildren: () => import('./boilers/boilers.module').then( m => m.BoilersPageModule)
   },
+  {
+    path: 'thermostats',
+    loadChildren: () => import('./thermostats/thermostats.module').then( m => m.ThermostatsPageModule)
+  },
 ];
 
 @NgModule({

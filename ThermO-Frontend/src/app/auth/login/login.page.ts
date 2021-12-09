@@ -20,8 +20,6 @@ export class LoginPage implements OnInit {
 
   // perform login action at back-end
   performLogin(formdata: any) {
-    console.log(formdata);
-
     this.auth.login(formdata).subscribe(success => {
       // check for succesfull login
       if(success)
