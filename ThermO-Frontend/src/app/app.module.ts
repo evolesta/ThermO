@@ -12,6 +12,7 @@ import { IonicStorageModule } from '@ionic/storage-angular';
 import { httpInterceptor } from './auth/http.interceptor'
 import { AddBoilerPageModule } from './boilers/add-boiler/add-boiler.module';
 import { EditBoilerPageModule } from './boilers/edit-boiler/edit-boiler.module';
+import { DatePipe } from '@angular/common';
 
 @NgModule({
   declarations: [AppComponent],
@@ -24,11 +25,12 @@ import { EditBoilerPageModule } from './boilers/edit-boiler/edit-boiler.module';
     HttpClientModule,
     IonicStorageModule.forRoot(),
     AddBoilerPageModule,
-    EditBoilerPageModule,
+    EditBoilerPageModule
   ],
   providers: [
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
-  { provide: HTTP_INTERCEPTORS, useClass: httpInterceptor, multi: true}],
+  { provide: HTTP_INTERCEPTORS, useClass: httpInterceptor, multi: true}, 
+  DatePipe],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

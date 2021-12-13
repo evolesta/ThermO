@@ -18,16 +18,16 @@
 
   <ion-list lines="full">
     <ion-item>
-      <ion-input name="name" placeholder="Naam" ngModel></ion-input>
+      <ion-input name="name" placeholder="Naam" [(ngModel)]="model.name"></ion-input>
       <ion-note>Weergavenaam voor de sensor binnen de applicatie</ion-note>
     </ion-item>
     <ion-item>
-      <ion-input name="sensorAddress" placeholder="IP-Adres" ngModel></ion-input>
+      <ion-input name="sensorAddress" placeholder="IP-Adres" [(ngModel)]="model.sensorAddress"></ion-input>
       <ion-note>Het IP-adres van de sensor die uitgelezen moet worden</ion-note>
     </ion-item>
     <ion-item>
       <ion-label>Geactiveerd</ion-label>
-      <ion-checkbox slot="start" checked="true" name="active" ngModel></ion-checkbox>
+      <ion-checkbox slot="start" checked="true" name="active" [(ngModel)]="model.active"></ion-checkbox>
       <ion-note>Wanneer geactiveerd, zal de sensor door het systeem worden uitgelezen</ion-note>
     </ion-item>
   </ion-list>

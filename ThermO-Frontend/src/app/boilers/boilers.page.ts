@@ -38,6 +38,13 @@ export class BoilersPage implements OnInit {
       if (data.data.success)
       {
         this.getBoilers();
+
+        this.toastController.create({
+          message: 'CV-ketel succesvol aangemaakt.',
+          color: 'success'
+        }).then(toastRes => {
+          toastRes.present();
+        });
       }
     })
 
@@ -57,7 +64,7 @@ export class BoilersPage implements OnInit {
         this.getBoilers();
 
         this.toastController.create({
-          message: 'CV-ketel is succesvol toegevoegd.',
+          message: 'CV-ketel is succesvol gewijzigd.',
           color: 'success',
           duration: 4000
         }).then(toastRes => {

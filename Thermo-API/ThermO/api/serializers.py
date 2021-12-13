@@ -5,7 +5,7 @@ from .models import *
 class SensorsSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Sensor
-        fields = ('name', 'sensorAddress', 'active')
+        fields = ('name', 'sensorAddress', 'active', 'id')
 
 class BoilersSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
@@ -25,7 +25,7 @@ class HeatpointSerializer(serializers.ModelSerializer):
 class ScheduleSerializer(serializers.ModelSerializer):
     class Meta:
         model = Schedule
-        fields = ('weekday', 'time', 'temperature', 'id')
+        fields = ('weekday', 'start', 'end', 'temperature', 'id')
 
 class SettingSerializer(serializers.ModelSerializer):
     class Meta:

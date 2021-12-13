@@ -9,6 +9,8 @@ import { HttpService } from 'src/app/http.service';
 })
 export class AddThermostatPage implements OnInit {
 
+  model: Thermostat = new Thermostat();
+
   constructor(private modalController: ModalController,
     private http: HttpService) { }
 
@@ -32,4 +34,11 @@ export class AddThermostatPage implements OnInit {
     });
   }
 
+}
+
+class Thermostat
+{
+  constructor(public name: string = '',
+  public sensorAddress: string = '',
+  public active: boolean = false) {}
 }

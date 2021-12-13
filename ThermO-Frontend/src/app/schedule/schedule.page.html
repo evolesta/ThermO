@@ -1,0 +1,28 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title><ion-icon name="clipboard"></ion-icon>&nbsp; Schema</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-list>
+    <ion-item>
+      <ion-grid>
+        <ion-row>
+          <ion-col><b>Dag</b></ion-col>
+          <ion-col><b>Van</b></ion-col>
+          <ion-col><b>Tot</b></ion-col>
+          <ion-col><b>Temperatuur</b></ion-col>
+        </ion-row>
+        <ion-row *ngFor="let schedule of scheduleData">
+          <ion-col>{{ weekdays[schedule.weekday] }}</ion-col>
+          <ion-col>{{ start | date: 'HH:mm' }}</ion-col>
+          <ion-col>{{ end | date: 'HH:mm' }}</ion-col>
+          <ion-col>{{ schedule.temperature }}</ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-item>,.
+  </ion-list>
+
+</ion-content>

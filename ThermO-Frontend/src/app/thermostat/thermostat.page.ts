@@ -16,7 +16,6 @@ export class ThermostatPage implements OnInit {
 
   ngOnInit() {
     this.menu.enable(true); // enable menu for redirects from login
-    this.menu.swipeGesture(true);
     this.getTemperatures();
   }
 

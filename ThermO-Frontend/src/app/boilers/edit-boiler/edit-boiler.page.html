@@ -18,11 +18,11 @@
 
   <ion-list lines="full">
     <ion-item>
-      <ion-input name="name" placeholder="Naam" ngModel="{{ boilerData?.name }}"></ion-input>
+      <ion-input name="name" placeholder="Naam" [(ngModel)]="model.name"></ion-input>
       <ion-note>Weergavenaam voor de ketel binnen de applicatie</ion-note>
     </ion-item>
     <ion-item>
-      <ion-input name="boilerAddress" placeholder="IP-Adres" ngModel="{{ boilerData?.boilerAddress }}"></ion-input>
+      <ion-input name="boilerAddress" placeholder="IP-Adres" [(ngModel)]="model.boilerAddress"></ion-input>
       <ion-note>Het IP-adres van de ketel die bestuurd moet worden</ion-note>
     </ion-item>
   </ion-list>

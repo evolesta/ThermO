@@ -11,7 +11,7 @@ import { HttpService } from 'src/app/http.service';
 export class EditBoilerPage implements OnInit {
 
   boilerId: any;
-  boilerData: any;
+  model: Boiler = new Boiler();
 
   constructor(private modalController: ModalController,
     private http: HttpService,
@@ -27,7 +27,8 @@ export class EditBoilerPage implements OnInit {
   getBoiler()
   {
     this.http.get('/boilers/' + this.boilerId + '/').subscribe(data => {
-      this.boilerData = data.body;
+      const response:any = data.body;
+      this.model = new Boiler(response.name, response.boilerAddress);
     })
   }
 
@@ -41,28 +42,16 @@ export class EditBoilerPage implements OnInit {
   editBoiler(formdata: any)
   {
     this.http.put('/boilers/' + this.boilerId + '/', formdata).subscribe(resp => {
-      this.displaySuccess();
-    })
-  }
-
-  async displaySuccess()
-  {
-    const alert = await this.alertController.create({
-      header: 'Ketel bijgewerkt', 
-      message: 'De CV-ketel is bijgewerkt.',
-      buttons: [
-        {
-          text: 'OK',
-          handler: () => {
-            this.modalController.dismiss({
-              'success': true
-            })
-          }
-        }
-      ]
+      this.modalController.dismiss({
+        success: true
+      });
     });
-
-    await alert.present(); // show alert
   }
 
+}
+
+class Boiler
+{
+  constructor(public name: string = '',
+    public boilerAddress: string = '') {}
 }

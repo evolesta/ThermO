@@ -46,6 +46,6 @@ class Setting(models.Model):
 
 class Schedule(models.Model):
     weekday = models.IntegerField()
-    start = models.TimeField(default='00:00')
-    end = models.TimeField(default='00:00')
+    start = models.TimeField(default='00:00', auto_now=False)
+    end = models.TimeField(default='00:00', auto_now=False)
     temperature = models.FloatField()

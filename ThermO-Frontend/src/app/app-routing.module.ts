@@ -23,6 +23,14 @@ const routes: Routes = [
     path: 'thermostats',
     loadChildren: () => import('./thermostats/thermostats.module').then( m => m.ThermostatsPageModule)
   },
+  {
+    path: 'settings',
+    loadChildren: () => import('./settings/settings.module').then( m => m.SettingsPageModule)
+  },
+  {
+    path: 'schedule',
+    loadChildren: () => import('./schedule/schedule.module').then( m => m.SchedulePageModule)
+  },
 ];
 
 @NgModule({

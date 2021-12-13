@@ -10,9 +10,10 @@ import { HttpService } from 'src/app/http.service';
 })
 export class AddBoilerPage implements OnInit {
 
+  model: Boiler = new Boiler();
+
   constructor(private modalController: ModalController,
-    private http: HttpService,
-    private alertController: AlertController) { }
+    private http: HttpService) { }
 
   ngOnInit() {
   }
@@ -31,30 +32,16 @@ export class AddBoilerPage implements OnInit {
   {
     // POST request
     this.http.post('/boilers/', formdata).subscribe(resp => {
-      // extract body from response
-      const body = resp.body;
-      this.displaySucces();
+      this.modalController.dismiss({
+        success: true
+      });
     });
   }
 
-  async displaySucces()
-  {
-    const alert = await this.alertController.create({
-      header: 'Ketel toegevoegd',
-      message: 'De nieuwe CV ketel is succesvol toegevoegd.',
-      buttons: [
-        {
-          text: 'OK',
-          handler: () => {
-            this.modalController.dismiss({
-              'success': true
-            });
-          }
-        }
-      ],
-    });
+}
 
-    await alert.present(); // show alert
-  }
-
+class Boiler
+{
+  constructor(public name: string = '',
+    public boilerAddress: string = '') {}
 }

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { MenuController } from '@ionic/angular';
+import { IonRouterOutlet, MenuController } from '@ionic/angular';
 import { AuthService } from './auth.service';
 
 @Component({
@@ -12,7 +12,8 @@ export class LoginPage implements OnInit {
 
   constructor(private menu: MenuController,
     private auth: AuthService,
-    private router: Router) { }
+    private router: Router,
+    private ionRouter: IonRouterOutlet) { }
 
   ngOnInit() {
     this.menu.enable(false);
@@ -24,7 +25,7 @@ export class LoginPage implements OnInit {
       // check for succesfull login
       if(success)
       {
-        this.router.navigate(['/thermostat']);
+        this.router.navigateByUrl('/thermostat');
       }
     });
   }
