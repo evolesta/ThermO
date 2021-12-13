@@ -6,6 +6,7 @@
 
 <ion-content>
 
+  <form #settingsForm="ngForm" onsubmit="saveSettings(settingsForm.value)">
   <ion-list>
     <ion-item>
       <ion-label>Actieve CV-ketel</ion-label>
@@ -14,6 +15,14 @@
       </ion-select>
       <ion-note>De CV-ketel die vanuit ThermO aangestuurd moet worden.</ion-note>
     </ion-item>
+    <ion-item>
+      <ion-label>Standaard temperatuur</ion-label>
+      <ion-input [(ngModel)]="model.defaultBoilerTemp" name="defaultBoilerTemp"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-button color="primary" type="submit" size="default"><ion-icon name="save"></ion-icon> Opslaan</ion-button>
+    </ion-item>
   </ion-list>
+  </form>
 
 </ion-content>
