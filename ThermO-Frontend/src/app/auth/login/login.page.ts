@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { IonRouterOutlet, MenuController } from '@ionic/angular';
+import { MenuController } from '@ionic/angular';
 import { AuthService } from './auth.service';
 
 @Component({
@@ -10,10 +10,11 @@ import { AuthService } from './auth.service';
 })
 export class LoginPage implements OnInit {
 
+  model: Login = new Login();
+
   constructor(private menu: MenuController,
     private auth: AuthService,
-    private router: Router,
-    private ionRouter: IonRouterOutlet) { }
+    private router: Router) { }
 
   ngOnInit() {
     this.menu.enable(false);
@@ -23,11 +24,15 @@ export class LoginPage implements OnInit {
   performLogin(formdata: any) {
     this.auth.login(formdata).subscribe(success => {
       // check for succesfull login
-      if(success)
-      {
-        this.router.navigateByUrl('/thermostat');
-      }
+      success && this.router.navigateByUrl('/thermostat');
     });
   }
 
+}
+
+class Login
+{
+  constructor(public username: string = '',
+    public password: string = '',
+    public stayLoggedin: boolean = false) { }
 }

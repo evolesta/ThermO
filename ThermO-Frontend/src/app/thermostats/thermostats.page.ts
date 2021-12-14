@@ -58,7 +58,7 @@ export class ThermostatsPage implements OnInit {
     });
 
     modal.onDidDismiss().then(data => {
-      if (data.data.success)
+      if (data.data.edit)
       {
         this.toastController.create({
           message: 'Sensor succesvol gewijzigd.',
@@ -70,43 +70,21 @@ export class ThermostatsPage implements OnInit {
 
         this.getThermostats();
       }
+      else if (data.data.remove)
+      {
+        this.toastController.create({
+          message: 'Thermostaat succesvol verwijderd.',
+          duration: 4000,
+          color: 'success'
+        }).then(toastRes => {
+          toastRes.present();
+        });
+
+        this.getThermostats();
+      }
     });
 
     return await modal.present();
-  }
-
-  async deleteThermostat(id)
-  {
-    const alert = await this.alertController.create({
-      header: 'Weet je het zeker?',
-      message: 'Weet je zeker dat je deze thermostaat wilt verwijderen?',
-      buttons: [
-        {
-          text: 'Annuleren',
-          role: 'cancel',
-          cssClass: 'secondary'
-        },
-        {
-          text: 'Verwijderen',
-          cssClass: 'primary',
-          handler: () => {
-            this.http.delete('/sensors/' + id + '/').subscribe(resp => {
-              this.getThermostats();
-
-              this.toastController.create({
-                message: 'Thermostaat succesvol verwijderd.',
-                duration: 4000,
-                color: 'success'
-              }).then(toastRes => {
-                toastRes.present();
-              });
-            });
-          }
-        }
-      ]
-    });
-
-    await alert.present();
   }
 
 }

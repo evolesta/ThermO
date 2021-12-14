@@ -20,6 +20,7 @@ export class httpInterceptor implements HttpInterceptor {
     ];
 
     constructor(private storage: StorageService,
+        private auth: AuthService,
         private router: Router) 
         { }
 
@@ -37,16 +38,26 @@ export class httpInterceptor implements HttpInterceptor {
                 if (!jwtHelper.isTokenExpired(token))
                 {
                     // token is still valid - add auth to headers
-                    request = request.clone({
-                        headers: request.headers.set(
-                            'Authorization', 'Bearer ' + token,
-                        )
+                    request = this.addAuthHeader(request, token);
+                }
+                else if (jwtHelper.isTokenExpired(token))
+                {
+                    this.storage.get('stayLoggedin').then(isTrue => {
+                        if (isTrue)
+                        {
+                            this.storage.get('refreshToken').then(token => {
+                                if (!jwtHelper.isTokenExpired(token))
+                                {
+                                    const newToken = this.auth.refresh();
+                                    request = this.addAuthHeader(request, newToken);
+                                }
+                            });   
+                        }
                     });
                 }
                 else
                 {
-                    // token is expired - cancel request and redirect to login page
-                    this.router.navigate(['/login']);
+                    this.router.navigateByUrl('/login');
                     return EMPTY;
                 }
             }
@@ -54,5 +65,16 @@ export class httpInterceptor implements HttpInterceptor {
             // return (manipulated) request
             return next.handle(request);
         }));
+    }
+
+    addAuthHeader(request: HttpRequest<any>, token: string)
+    {
+        request = request.clone({
+            headers: request.headers.set(
+                'Authorization', 'Bearer ' + token
+            )
+        });
+
+        return request;
     }
 }

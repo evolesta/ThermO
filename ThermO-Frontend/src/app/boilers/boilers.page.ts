@@ -59,7 +59,7 @@ export class BoilersPage implements OnInit {
     });
 
     modal.onDidDismiss().then(data => {
-      if (data.data.success)
+      if (data.data.edit)
       {
         this.getBoilers();
 
@@ -71,43 +71,21 @@ export class BoilersPage implements OnInit {
           toastRes.present();
         });
       }
+      else if (data.data.remove)
+      {
+        this.getBoilers();
+
+        this.toastController.create({
+          message: 'CV-ketel is succesvol verwijderd.',
+          color: 'success',
+          duration: 4000
+        }).then(toastRes => {
+          toastRes.present();
+        })
+      }
     })
 
     return await modal.present();
-  }
-
-  async deleteBoiler(id)
-  {
-    const alert = await this.alertController.create({
-      header: 'Weet je het zeker?',
-      message: 'Weet je zeker dat je deze CV-ketel wilt verwijderen?',
-      buttons: [
-        {
-          text: 'Annuleren',
-          cssClass: 'secondary',
-          role: 'cancel'
-        },
-        {
-          text: 'Verwijderen',
-          cssClass: 'danger',
-          handler: () => {
-            this.http.delete('/boilers/' + id + '/').subscribe(resp => {
-              this.getBoilers();
-              
-              this.toastController.create({
-                message: 'CV-ketel is succesvol verwijderd.',
-                color: "success",
-                duration: 4000
-              }).then(toastRes => {
-                toastRes.present();
-              });
-            })
-          }
-        }
-      ]
-    })
-
-    await alert.present();
   }
 
 }

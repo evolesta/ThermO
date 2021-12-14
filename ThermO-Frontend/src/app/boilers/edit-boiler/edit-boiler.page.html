@@ -1,10 +1,14 @@
 <ion-header>
   <ion-toolbar color="tertiary">
-    <ion-title>Ketel bewerken</ion-title>
+    <ion-fab horizontal="start" vertical="center">
+      <ion-fab-button size="small" color="tertiary" (click)="dismissModal()">
+        <ion-icon name="arrow-back"></ion-icon>
+      </ion-fab-button>
+    </ion-fab>
 
     <ion-fab horizontal="end" vertical="center">
-      <ion-fab-button size="small" color="tertiary" (click)="dismissModal()">
-        <ion-icon name="close"></ion-icon>
+      <ion-fab-button size="small" color="tertiary" (click)="deleteBoiler()">
+        <ion-icon name="trash"></ion-icon>
       </ion-fab-button>
     </ion-fab>
     </ion-toolbar>
@@ -27,7 +31,7 @@
     </ion-item>
   </ion-list>
 
-  <ion-button color="primary" type="submit"><ion-icon name="save"></ion-icon>&nbsp;Opslaan</ion-button>
+  <ion-button color="primary" type="submit" expand="block"><ion-icon name="save"></ion-icon>&nbsp;Opslaan</ion-button>
 
 </form>
 

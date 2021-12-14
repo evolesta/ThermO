@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ModalController, NavParams } from '@ionic/angular';
+import { AlertController, ModalController, NavParams } from '@ionic/angular';
 import { HttpService } from 'src/app/http.service';
 
 @Component({
@@ -14,7 +14,8 @@ export class EditThermostatPage implements OnInit {
 
   constructor(private modalController: ModalController,
     private navParams: NavParams,
-    private http: HttpService) { }
+    private http: HttpService,
+    private alertController: AlertController) { }
 
   ngOnInit() {
     this.thermostatId = this.navParams.get('id');
@@ -41,9 +42,35 @@ export class EditThermostatPage implements OnInit {
     console.log(formdata)
     this.http.put('/sensors/' + this.thermostatId + '/', formdata).subscribe(resp => {
       this.modalController.dismiss({
-        'success': true
+        edit: true
       });
     });
+  }
+
+  async deleteThermostat()
+  {
+    const alert = await this.alertController.create({
+      header: 'Weet je het zeker?',
+      message: 'Weet je zeker dat je deze thermostaat wilt verwijderen?',
+      buttons: [
+        {
+          text: 'Annuleren',
+          role: 'cancel'
+        },
+        {
+          text: 'Verwijderen',
+          handler: () => {
+            this.http.delete('/sensors/' + this.thermostatId + '/').subscribe(resp => {
+              this.modalController.dismiss({
+                remove: true
+              });
+            });
+          }
+        }
+      ]
+    });
+
+    return await alert.present();
   }
 
 }

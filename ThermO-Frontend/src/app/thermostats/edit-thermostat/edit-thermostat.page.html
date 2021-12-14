@@ -1,11 +1,17 @@
 <ion-header>
   <ion-toolbar color="primary">
-    <ion-title><ion-icon name="pencil"></ion-icon>&nbsp; Thermostaat bewerken</ion-title>
+    <ion-title></ion-title>
   </ion-toolbar>
 
-  <ion-fab horizontal="end" vertical="center">
+  <ion-fab horizontal="start" vertical="center">
     <ion-fab-button size="small" color="tertiary" (click)="dismissModal()">
-      <ion-icon name="close"></ion-icon>
+      <ion-icon name="arrow-back"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+  <ion-fab horizontal="end" vertical="center">
+    <ion-fab-button size="small" color="danger" (click)="deleteThermostat()">
+      <ion-icon name="trash"></ion-icon>
     </ion-fab-button>
   </ion-fab>
 </ion-header>
@@ -32,7 +38,7 @@
     </ion-item>
   </ion-list>
 
-  <ion-button color="primary" type="submit"><ion-icon name="save"></ion-icon>&nbsp;Opslaan</ion-button>
+  <ion-button color="primary" type="submit" expand="block"><ion-icon name="save"></ion-icon>&nbsp;Opslaan</ion-button>
 
 </form>
 

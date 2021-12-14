@@ -13,23 +13,8 @@
   </ion-fab>
 
   <ion-list>
-    <ion-item>
-      <ion-grid>
-        <ion-row>
-          <ion-col><b>Naam</b></ion-col>
-          <ion-col><b>IP-Adres</b></ion-col>
-          <ion-col size="1"><b>Actief</b></ion-col>
-          <ion-col size="1"></ion-col>
-          <ion-col size="1"></ion-col>
-        </ion-row>
-        <ion-row *ngFor="let thermostat of thermostats">
-          <ion-col>{{ thermostat.name }}</ion-col>
-          <ion-col>{{ thermostat.sensorAddress }}</ion-col>
-          <ion-col size="1"><ion-icon *ngIf="thermostat.active" name="checkmark"></ion-icon></ion-col>
-          <ion-col size="1"><a (click)="openEditThermostatModal(thermostat.id)"><ion-icon name="pencil"></ion-icon></a></ion-col>
-          <ion-col size="1"><a (click)="deleteThermostat(thermostat.id)"><ion-icon name="trash"></ion-icon></a></ion-col>
-        </ion-row>
-      </ion-grid>
+    <ion-item *ngFor="let thermostat of thermostats" (click)="openEditThermostatModal(thermostat.id)">
+      <ion-label>{{ thermostat.name }}</ion-label>
     </ion-item>
   </ion-list>
 
