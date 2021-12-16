@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { ModalController, ToastController } from '@ionic/angular';
 import { HttpService } from '../http.service';
 import { AddSchedulePage } from './add-schedule/add-schedule.page';
+import { EditSchedulePage } from './edit-schedule/edit-schedule.page';
 
 @Component({
   selector: 'app-schedule',
@@ -61,6 +62,42 @@ export class SchedulePage implements OnInit {
         });
       }
     });
+
+    return await modal.present();
+  }
+
+  async openEditScheduleModal(id: number)
+  {
+    const modal = await this.modalController.create({
+      component: EditSchedulePage,
+      componentProps: { id: id }
+    });
+
+    modal.onDidDismiss().then(data => {
+      if (data.data.delete)
+      {
+        this.getSchedule();
+        this.toastController.create({
+          message: 'Schema succesvol verwijderd.',
+          color: 'success',
+          duration: 4000
+        }).then(toastRes => {
+          toastRes.present();
+        });
+      }
+
+      if (data.data.edit)
+      {
+        this.getSchedule();
+        this.toastController.create({
+          message: 'Schema succesvol gewijzigd.',
+          color: 'success',
+          duration: 4000
+        }).then(toastRes => {
+          toastRes.present();
+        })
+      }
+    })
 
     return await modal.present();
   }

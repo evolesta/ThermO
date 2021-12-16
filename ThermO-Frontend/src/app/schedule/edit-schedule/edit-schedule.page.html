@@ -1,9 +1,55 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>edit-schedule</ion-title>
+  <ion-toolbar color="primary">
+    <ion-title></ion-title>
   </ion-toolbar>
+
+  <ion-fab horizontal="start" vertical="center">
+    <ion-fab-button size="small" color="tertiary" (click)="dismissModal()">
+      <ion-icon name="arrow-back"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+  <ion-fab horizontal="end" vertical="center">
+    <ion-fab-button size="small" color="danger" (click)="deleteSchedule()">
+      <ion-icon name="trash"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 </ion-header>
 
 <ion-content>
+
+  <form #editScheduleForm="ngForm" (ngSubmit)="submitSchedule(editScheduleForm.value)">
+    <ion-list>
+      <ion-item>
+        <ion-label>Dag van de week</ion-label>
+        <ion-select name="weekday" [(ngModel)]="model.weekday">
+          <ion-select-option *ngFor="let weekday of weekdays" value="{{ weekday.key }}">{{ weekday.value }}</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-label>Starttijd</ion-label>
+        <ion-input type="time" name="start" [(ngModel)]="model.start"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label>Eindtijd</ion-label>
+        <ion-input type="time" name="end" [(ngModel)]="model.end"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label>Gewenste temperatuur:</ion-label>
+        <h1>{{ model.temperature }} °C</h1>
+      </ion-item>
+      <ion-item>
+        <ion-icon slot="start" size="small" name="thermometer" color="secondary"></ion-icon>
+      <ion-text slot="start">15 °C</ion-text>
+      <ion-icon slot="end" size="small" name="flame" color="danger"></ion-icon>
+      <ion-text slot="end">25 °C</ion-text>
+        <ion-range name="temperature" min="15" max="25" step="0.5" dualKnobs="false" snaps="true"
+          (ionChange)="changeTempValue($event)" [(ngModel)]="model.temperature"></ion-range>
+      </ion-item>
+      <ion-item>
+        <ion-button size="default" type="submit"><ion-icon name="add"></ion-icon>Toevoegen</ion-button>
+      </ion-item>
+    </ion-list>
+    </form>
 
 </ion-content>

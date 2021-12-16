@@ -13,7 +13,7 @@
   </ion-fab>
 
   <ion-list>
-    <ion-item *ngFor="let schedule of scheduleData">
+    <ion-item *ngFor="let schedule of scheduleData" (click)="openEditScheduleModal(schedule.id)">
       <ion-label>
         <h2><b>{{ weekdays[schedule.weekday] }}</b></h2>
         <h2>{{ schedule.start }} - {{ schedule.end }}</h2>
