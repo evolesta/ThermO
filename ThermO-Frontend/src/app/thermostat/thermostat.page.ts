@@ -17,6 +17,10 @@ export class ThermostatPage implements OnInit {
   ngOnInit() {
     this.menu.enable(true); // enable menu for redirects from login
     this.getTemperatures();
+
+    $("#slider1").roundSlider({
+      value: 45
+    });
   }
 
   // gets the current temperatures from the back-end
@@ -41,7 +45,8 @@ export class ThermostatPage implements OnInit {
     console.log('Zet volgende naar api' + event.target.value);
 
     const body = {
-      'heatpoint': event.target.value,
+      'heatpoint': this.desiredTemperature,
+      'temperature': this.currentTemperature
     };
 
     this.http.put('/heatpoint/1/', body).subscribe(response => {

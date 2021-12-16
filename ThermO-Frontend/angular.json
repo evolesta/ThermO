@@ -31,8 +31,11 @@
                 "output": "./svg"
               }
             ],
-            "styles": ["src/theme/variables.scss", "src/global.scss"],
-            "scripts": [],
+            "styles": ["src/theme/variables.scss", "src/global.scss", "./node_modules/round-slider/dist/roundslider.min.css"],
+            "scripts": [
+              "./node_modules/jquery/dist/jquery.min.js",
+              "./node_modules/round-slider/dist/roundslider.min.js"
+            ],
             "aot": false,
             "vendorChunk": true,
             "extractLicenses": false,

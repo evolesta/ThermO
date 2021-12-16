@@ -6,23 +6,20 @@
 
 <ion-content>
 
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button color="danger" (click)="openAddScheduleModal()">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
   <ion-list>
-    <ion-item>
-      <ion-grid>
-        <ion-row>
-          <ion-col><b>Dag</b></ion-col>
-          <ion-col><b>Van</b></ion-col>
-          <ion-col><b>Tot</b></ion-col>
-          <ion-col><b>Temperatuur</b></ion-col>
-        </ion-row>
-        <ion-row *ngFor="let schedule of scheduleData">
-          <ion-col>{{ weekdays[schedule.weekday] }}</ion-col>
-          <ion-col>{{ start | date: 'HH:mm' }}</ion-col>
-          <ion-col>{{ end | date: 'HH:mm' }}</ion-col>
-          <ion-col>{{ schedule.temperature }}</ion-col>
-        </ion-row>
-      </ion-grid>
-    </ion-item>,.
+    <ion-item *ngFor="let schedule of scheduleData">
+      <ion-label>
+        <h2><b>{{ weekdays[schedule.weekday] }}</b></h2>
+        <h2>{{ schedule.start }} - {{ schedule.end }}</h2>
+        <p>{{ schedule.temperature }} °C</p>
+        </ion-label>
+    </ion-item>
   </ion-list>
 
 </ion-content>

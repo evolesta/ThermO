@@ -1,6 +1,8 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { ModalController, ToastController } from '@ionic/angular';
 import { HttpService } from '../http.service';
+import { AddSchedulePage } from './add-schedule/add-schedule.page';
 
 @Component({
   selector: 'app-schedule',
@@ -23,7 +25,9 @@ export class SchedulePage implements OnInit {
   public end: any;
 
   constructor(private http: HttpService,
-    private datepipe: DatePipe) { }
+    private datepipe: DatePipe,
+    private modalController: ModalController,
+    private toastController: ToastController) { }
 
   ngOnInit() {
     this.getSchedule();
@@ -36,6 +40,29 @@ export class SchedulePage implements OnInit {
       this.start = new Date(this.scheduleData.start);
       this.end = new Date(this.scheduleData.end);
     })
+  }
+
+  async openAddScheduleModal()
+  {
+    const modal = await this.modalController.create({
+      component: AddSchedulePage
+    });
+
+    modal.onDidDismiss().then(data => {
+      if (data.data.add)
+      {
+        this.getSchedule();
+        this.toastController.create({
+          message: 'Schema succesvol toegevoegd.',
+          color: 'success',
+          duration: 4000
+        }).then(toastRes => {
+          toastRes.present();
+        });
+      }
+    });
+
+    return await modal.present();
   }
 
 }

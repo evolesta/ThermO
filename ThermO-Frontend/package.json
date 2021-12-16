@@ -31,7 +31,9 @@
     "@ionic/storage-angular": "^3.0.6",
     "cordova-plugin-nativestorage": "^2.3.2",
     "cordova-sqlite-storage": "^6.0.0",
+    "jquery": "^3.6.0",
     "localforage-cordovasqlitedriver": "^1.8.0",
+    "round-slider": "^1.6.1",
     "rxjs": "~6.6.0",
     "tslib": "^2.2.0",
     "zone.js": "~0.11.4"
@@ -50,6 +52,7 @@
     "@ionic/angular-toolkit": "^4.0.0",
     "@types/jasmine": "~3.6.0",
     "@types/jasminewd2": "~2.0.3",
+    "@types/jquery": "^3.5.10",
     "@types/node": "^12.11.1",
     "@typescript-eslint/eslint-plugin": "4.16.1",
     "@typescript-eslint/parser": "4.16.1",
