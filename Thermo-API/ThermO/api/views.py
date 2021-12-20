@@ -50,9 +50,14 @@ class HeatpointViewSet(viewsets.ViewSet):
         else:
             return Response(serializer.errors)
 
-class ScheduleViewSet(viewsets.ModelViewSet):
-    queryset = Schedule.objects.all()
-    serializer_class = ScheduleSerializer
+class SingleDaySchedule(viewsets.ModelViewSet):
+    queryset = SingleDaySchedule.objects.order_by('weekday').all()
+    serializer_class = SingleDayScheduleSerializer
+    permission_classes = [IsAuthenticated]
+
+class GroupedWeekSchedule(viewsets.ModelViewSet):
+    queryset = GroupedWeekSchedule.objects.order_by('group').all()
+    serializer_class = GroupedWeekScheduleSerializer
     permission_classes = [IsAuthenticated]
 
 class SettingViewSet(viewsets.ViewSet):
@@ -71,6 +76,7 @@ class SettingViewSet(viewsets.ViewSet):
         if serializer.is_valid():
             data.activeBoiler = serializer.validated_data['activeBoiler']
             data.defaultBoilerTemp = serializer.validated_data['defaultBoilerTemp']
+            data.scheduleGrouped = serializer.validated_data['scheduleGrouped']
             data.save()
             return Response({'status': 'OK'})
         else:

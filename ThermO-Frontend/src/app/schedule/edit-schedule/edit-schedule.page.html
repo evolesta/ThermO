@@ -22,7 +22,7 @@
     <ion-list>
       <ion-item>
         <ion-label>Dag van de week</ion-label>
-        <ion-select name="weekday" [(ngModel)]="model.weekday">
+        <ion-select name="weekday" [(ngModel)]="model.weekday" [value]="model.weekday">
           <ion-select-option *ngFor="let weekday of weekdays" value="{{ weekday.key }}">{{ weekday.value }}</ion-select-option>
         </ion-select>
       </ion-item>
@@ -47,7 +47,7 @@
           (ionChange)="changeTempValue($event)" [(ngModel)]="model.temperature"></ion-range>
       </ion-item>
       <ion-item>
-        <ion-button size="default" type="submit"><ion-icon name="add"></ion-icon>Toevoegen</ion-button>
+        <ion-button size="default" type="submit"><ion-icon name="save"></ion-icon>Opslaan</ion-button>
       </ion-item>
     </ion-list>
     </form>

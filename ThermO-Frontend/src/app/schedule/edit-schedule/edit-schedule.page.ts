@@ -41,13 +41,18 @@ export class EditSchedulePage implements OnInit {
 
   getScheduleData()
   {
-    this.http.get('/schedule/' + this.id).subscribe(data => {
+    this.http.get('/schedule/' + this.id + '/').subscribe(data => {
       const response:any = data.body;
       this.model.weekday = response.weekday;
       this.model.start = response.start;
       this.model.end = response.end;
       this.model.temperature = response.temperature;
     });
+  }
+
+  changeTempValue(event)
+  {
+    this.model.temperature = event.target.value;
   }
 
   async deleteSchedule()
@@ -76,7 +81,9 @@ export class EditSchedulePage implements OnInit {
 
   submitSchedule(formdata: any)
   {
-
+    this.http.put('/schedule/' + this.id + '/', formdata).subscribe(resp => {
+      this.modalController.dismiss({edit: true});
+    });
   }
 
 }

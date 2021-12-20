@@ -43,9 +43,16 @@ class Honeywell(models.Model):
 class Setting(models.Model):
     activeBoiler = models.IntegerField()
     defaultBoilerTemp = models.FloatField()
+    scheduleGrouped = models.BooleanField(default=True)
 
-class Schedule(models.Model):
+class SingleDaySchedule(models.Model):
     weekday = models.IntegerField()
+    start = models.TimeField(default='00:00', auto_now=False)
+    end = models.TimeField(default='00:00', auto_now=False)
+    temperature = models.FloatField()
+
+class GroupedWeekSchedule(models.Model):
+    group = models.CharField(max_length=20)
     start = models.TimeField(default='00:00', auto_now=False)
     end = models.TimeField(default='00:00', auto_now=False)
     temperature = models.FloatField()

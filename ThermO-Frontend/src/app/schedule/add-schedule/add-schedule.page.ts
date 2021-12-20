@@ -1,6 +1,6 @@
 import { KeyValue } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { ModalController } from '@ionic/angular';
+import { ModalController, NavParams } from '@ionic/angular';
 import { HttpService } from 'src/app/http.service';
 
 @Component({
@@ -11,7 +11,8 @@ import { HttpService } from 'src/app/http.service';
 export class AddSchedulePage implements OnInit {
 
   constructor(private modalController: ModalController,
-    private http: HttpService) { }
+    private http: HttpService,
+    private navParams: NavParams) { }
 
   public weekdays: KeyValue<number, string>[] = [
     { key: 1, value: 'Maandag' },
@@ -24,9 +25,11 @@ export class AddSchedulePage implements OnInit {
   ];
 
   desiredTemperature: number = 20.0;
+  groupedActive: boolean;
   model: Schedule = new Schedule();
 
   ngOnInit() {
+    this.groupedActive = this.navParams.get('grouped');
   }
 
   dismissModal() {
@@ -42,10 +45,11 @@ export class AddSchedulePage implements OnInit {
 
   submitNewSchedule(formdata: any)
   {
-    this.http.post('/schedule/', formdata).subscribe(resp => {
-      this.modalController.dismiss({
-        add: true
-      });
+    var url: string;
+    (this.groupedActive) ? url = '/schedule-grouped/' : url = '/schedule-single/';
+
+    this.http.post(url, formdata).subscribe(resp => {
+      this.modalController.dismiss({add: true});
     });
   }
 
@@ -54,6 +58,7 @@ export class AddSchedulePage implements OnInit {
 class Schedule
 {
   constructor(public weekday: number = 0,
+    public group:string = '',
     public start: string = '',
     public end: string = '',
     public temperature: number = 20.0) {}

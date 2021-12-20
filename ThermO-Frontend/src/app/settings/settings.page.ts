@@ -24,7 +24,7 @@ export class SettingsPage implements OnInit {
   {
     this.http.get('/settings/').subscribe(resp => {
       const response:any = resp.body;
-      this.model = new Setting(response.activeBoiler, response.defaultBoilerTemp);
+      this.model = new Setting(response.activeBoiler, response.defaultBoilerTemp, response.scheduleGrouped);
     })
   }
 
@@ -38,6 +38,7 @@ export class SettingsPage implements OnInit {
   saveSettings(formdata: any)
   {
     this.http.put('/settings/1/', formdata).subscribe(resp => {
+      console.log(resp)
       this.toastController.create({
         message: 'Instellingen succesvol opgeslagen.',
         color: 'success',
@@ -53,5 +54,6 @@ export class SettingsPage implements OnInit {
 class Setting
 {
   constructor(public activeBoiler: number = 0,
-    public defaultBoilerTemp: number = 0) {}
+    public defaultBoilerTemp: number = 0,
+    public scheduleGrouped: boolean = true) {}
 }

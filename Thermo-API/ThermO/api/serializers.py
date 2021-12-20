@@ -22,12 +22,17 @@ class HeatpointSerializer(serializers.ModelSerializer):
         model = Heatpoint
         fields = ('heatpoint', 'temperature')
 
-class ScheduleSerializer(serializers.ModelSerializer):
+class SingleDayScheduleSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Schedule
+        model = SingleDaySchedule
         fields = ('weekday', 'start', 'end', 'temperature', 'id')
+
+class GroupedWeekScheduleSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = GroupedWeekSchedule
+        fields = ('group', 'start', 'end', 'temperature', 'id')    
 
 class SettingSerializer(serializers.ModelSerializer):
     class Meta:
         model = Setting
-        fields = ('activeBoiler', 'defaultBoilerTemp')
+        fields = ('activeBoiler', 'defaultBoilerTemp', 'scheduleGrouped')

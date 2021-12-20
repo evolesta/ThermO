@@ -53,6 +53,11 @@ export class httpInterceptor implements HttpInterceptor {
                                 }
                             });   
                         }
+                        else
+                        {
+                            this.router.navigateByUrl('/login');
+                            return EMPTY;
+                        }
                     });
                 }
                 else

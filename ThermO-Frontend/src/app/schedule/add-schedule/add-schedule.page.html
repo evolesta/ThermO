@@ -14,9 +14,13 @@
   <form #addScheduleForm="ngForm" (ngSubmit)="submitNewSchedule(addScheduleForm.value)">
   <ion-list>
     <ion-item>
-      <ion-label>Dag van de week</ion-label>
-      <ion-select name="weekday" [(ngModel)]="model.weekday">
-        <ion-select-option *ngFor="let weekday of weekdays" value="{{ weekday.key }}">{{ weekday.value }}</ion-select-option>
+      <ion-label>Dag / groep</ion-label>
+      <ion-select name="group" *ngIf="groupedActive" [(ngModel)]="model.weekday">
+          <ion-select-option value="weekday">Werkdagen (ma-vrij)</ion-select-option>
+          <ion-select-option value="weekend">Weekend (za-zo)</ion-select-option>
+      </ion-select>
+      <ion-select name="weekday" *ngIf="!groupedActive" [(ngModel)]="model.group">
+          <ion-select-option *ngFor="let weekday of weekdays" value="{{ weekday.key }}">{{ weekday.value }}</ion-select-option>
       </ion-select>
     </ion-item>
     <ion-item>

@@ -24,6 +24,7 @@ export class SchedulePage implements OnInit {
   public scheduleData: any;
   public start: any;
   public end: any;
+  public model: GroupedDaysView = new GroupedDaysView();
 
   constructor(private http: HttpService,
     private datepipe: DatePipe,
@@ -36,17 +37,29 @@ export class SchedulePage implements OnInit {
 
   getSchedule()
   {
-    this.http.get('/schedule/').subscribe(resp => {
-      this.scheduleData = resp.body;
-      this.start = new Date(this.scheduleData.start);
-      this.end = new Date(this.scheduleData.end);
-    })
+    // first get view from settings, grouped or single day view
+    this.http.get('/settings/').subscribe(resp => {
+      const response:any = resp.body;
+      this.model.active = response.scheduleGrouped;
+
+      // define which back-end model to retrieve
+      var url: string;
+      (this.model.active) ? url = '/schedule-grouped/' : url = '/schedule-single/';
+
+        this.http.get(url).subscribe(resp => {
+          this.scheduleData = resp.body;
+        });
+    });
   }
 
-  async openAddScheduleModal()
+  async openAddScheduleModal(group: string)
   {
     const modal = await this.modalController.create({
-      component: AddSchedulePage
+      component: AddSchedulePage,
+      componentProps: {
+        grouped: this.model.active,
+        group: group
+      }
     });
 
     modal.onDidDismiss().then(data => {
@@ -102,4 +115,9 @@ export class SchedulePage implements OnInit {
     return await modal.present();
   }
 
+}
+
+class GroupedDaysView
+{ 
+  constructor(public active: boolean = true) {}
 }

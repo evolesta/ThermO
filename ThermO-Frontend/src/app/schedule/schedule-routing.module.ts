@@ -15,7 +15,7 @@ const routes: Routes = [
   {
     path: 'edit-schedule',
     loadChildren: () => import('./edit-schedule/edit-schedule.module').then( m => m.EditSchedulePageModule)
-  }
+  },
 ];
 
 @NgModule({
