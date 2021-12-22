@@ -1,0 +1,27 @@
+<ion-content>
+
+<h1 style="text-align: center; margin-top: 50px; font-size: 30px;">ThermO</h1>
+
+<ion-card class="loginBox">
+  <h1>Inloggen</h1>
+
+  <form (ngSubmit)="performLogin(loginForm.value)" #loginForm="ngForm">
+  <ion-item>
+    <ion-input placeholder="Gebruikersnaam" name="username" [(ngModel)]="model.username"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-input placeholder="Wachtwoord" type="password" name="password" [(ngModel)]="model.password"></ion-input>
+  </ion-item>
+  <br/>
+  <ion-item>
+    <ion-checkbox name="stayLoggedin" [(ngModel)]="model.stayLoggedin" checked="false" value="true"></ion-checkbox>
+    <ion-label>&nbsp;Ingelogd blijven</ion-label>
+  </ion-item>
+  <ion-button expand="block" type="submit">Inloggen</ion-button></form>
+</ion-card>
+
+<div class="footer">
+  <p>&copy; Gemaakt door E. Langendijk</p>
+</div>
+
+</ion-content>

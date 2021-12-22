@@ -1,0 +1,60 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title><ion-icon name="clipboard"></ion-icon>&nbsp; Schema</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-list *ngIf="!model.active">
+    <ion-item>
+      <ion-label>Gegroepeerde dagen (ma-vrij/za-zo)</ion-label>
+      <ion-toggle checked="true" disabled="true" [(ngModel)]="model.active"></ion-toggle>
+    </ion-item>
+    <ion-item>
+      <ion-button shape="round" size="default" color="danger" slot="end" (click)="openAddScheduleModal('weekend')"><ion-icon name="add"></ion-icon></ion-button>
+    </ion-item>
+    <ion-item *ngFor="let schedule of scheduleData" (click)="openEditScheduleModal(schedule.id)">
+      <ion-label>
+        <h2><b>{{ weekdays[schedule.weekday] }}</b></h2>
+        <h2>{{ schedule.start }} - {{ schedule.end }}</h2>
+        <p>{{ schedule.temperature }} °C</p>
+        </ion-label>
+    </ion-item>
+  </ion-list>
+
+  <ion-list *ngIf="model.active">
+    <ion-item>
+      <ion-label>Gegroepeerde dagen (ma-vrij/za-zo)</ion-label>
+      <ion-toggle checked="true" disabled="true" [(ngModel)]="model.active"></ion-toggle>
+    </ion-item>
+    <ion-item>
+      <h3><b>maandag - vrijdag</b></h3>
+      <ion-button shape="round" size="default" color="danger" slot="end" (click)="openAddScheduleModal('weekdays')"><ion-icon name="add"></ion-icon></ion-button>
+    </ion-item>
+    <ng-container *ngFor="let schedule of scheduleData">
+      <ion-item *ngIf="schedule.group == 'weekday'" (click)="openEditScheduleModal(schedule.id)">
+        <ion-label>
+          <h2>{{ schedule.start }} - {{ schedule.end }}</h2>
+          <p>{{ schedule.temperature }} °C</p>
+        </ion-label>
+      </ion-item>
+    </ng-container>
+  </ion-list>
+
+  <ion-list *ngIf="model.active">
+    <ion-item>
+      <h3><b>zaterdag - zondag</b></h3>
+      <ion-button shape="round" size="default" color="danger" slot="end" (click)="openAddScheduleModal('weekend')"><ion-icon name="add"></ion-icon></ion-button>
+    </ion-item>
+    <ng-container *ngFor="let schedule of scheduleData">
+      <ion-item *ngIf="schedule.group == 'weekend'" (click)="openEditScheduleModal(schedule.id)">
+        <ion-label>
+          <h2>{{ schedule.start }} - {{ schedule.end }}</h2>
+          <p>{{ schedule.temperature }} °C</p>
+        </ion-label>
+      </ion-item>
+    </ng-container>
+  </ion-list>
+
+</ion-content>

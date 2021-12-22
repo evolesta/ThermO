@@ -1,0 +1,30 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title><ion-icon name="thermometer"></ion-icon>&nbsp;Thermostaat</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-item>
+    <ion-label>Huidige temperatuur:</ion-label>
+    <ion-text><h1>{{currentTemperature}} °C</h1></ion-text>
+  </ion-item>
+
+  <ion-item>
+    <ion-label>Gewenste temperatuur:</ion-label>
+    <ion-text><h1><b>{{desiredTemperature}} °C</b></h1></ion-text>
+  </ion-item>
+
+  <ion-item>
+    <ion-icon slot="start" size="small" name="thermometer" color="secondary"></ion-icon>
+    <ion-text slot="start">15 °C</ion-text>
+    <ion-icon slot="end" size="small" name="flame" color="danger"></ion-icon>
+    <ion-text slot="end">25 °C</ion-text>
+    <ion-range min="15" max="25" step="0.5" snaps="true" color="danger" dualKnobs="false" value="{{ desiredTemperature }}"
+    (ionChange)="setTemperature($event)" (ionBlur)="updateTemperature($event)" class="circularSlider"></ion-range>
+  </ion-item>
+
+  <div id="slider"></div>
+
+</ion-content>

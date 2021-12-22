@@ -1,0 +1,33 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title><ion-icon name="settings"></ion-icon>&nbsp; Instellingen</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <form #settingsForm="ngForm" (ngSubmit)="saveSettings(settingsForm.value)">
+  <ion-list>
+    <ion-item>
+      <ion-label>Actieve CV-ketel</ion-label>
+      <ion-note>De CV-ketel die vanuit ThermO aangestuurd moet worden.</ion-note>
+      <ion-select name="activeBoiler" placeholder="Actieve CV-ketel" [(ngModel)]="model.activeBoiler" [value]="model.activeBoiler">
+        <ion-select-option *ngFor="let boiler of boilersData" [value]="boiler?.id">{{ boiler?.name }}</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label>Standaard temperatuur</ion-label>
+      <ion-input [(ngModel)]="model.defaultBoilerTemp" name="defaultBoilerTemp"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Gegroepeerd weekschema</ion-label>
+      <ion-note>Configureer het weekschema per weekdeel (ma-vrij/za-zo) of per dag</ion-note>
+      <ion-toggle name="scheduleGrouped" value="True" [(ngModel)]="model.scheduleGrouped"></ion-toggle>
+    </ion-item>
+    <ion-item>
+      <ion-button color="primary" type="submit" size="default"><ion-icon name="save"></ion-icon> Opslaan</ion-button>
+    </ion-item>
+  </ion-list>
+  </form>
+
+</ion-content>

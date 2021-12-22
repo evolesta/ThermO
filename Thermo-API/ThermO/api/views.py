@@ -1,4 +1,5 @@
 from datetime import date
+from typing import Set
 from django.db.models import query
 from django.shortcuts import get_object_or_404, render
 
@@ -49,7 +50,34 @@ class HeatpointViewSet(viewsets.ViewSet):
         else:
             return Response(serializer.errors)
 
-class ScheduleViewSet(viewsets.ModelViewSet):
-    queryset = Schedule.objects.all()
-    serializer_class = ScheduleSerializer
+class SingleDaySchedule(viewsets.ModelViewSet):
+    queryset = SingleDaySchedule.objects.order_by('weekday').all()
+    serializer_class = SingleDayScheduleSerializer
     permission_classes = [IsAuthenticated]
+
+class GroupedWeekSchedule(viewsets.ModelViewSet):
+    queryset = GroupedWeekSchedule.objects.order_by('group').all()
+    serializer_class = GroupedWeekScheduleSerializer
+    permission_classes = [IsAuthenticated]
+
+class SettingViewSet(viewsets.ViewSet):
+    permission_classes = [IsAuthenticated]
+
+    def list(self, request, pk=1):
+        queryset = Setting.objects.all()
+        data = get_object_or_404(queryset, pk=1)
+        serializer = SettingSerializer(data)
+        return Response(serializer.data)
+
+    def update(self, request, pk=1):
+        data = Setting.objects.get(pk=1)
+        serializer = SettingSerializer(data=request.data)
+
+        if serializer.is_valid():
+            data.activeBoiler = serializer.validated_data['activeBoiler']
+            data.defaultBoilerTemp = serializer.validated_data['defaultBoilerTemp']
+            data.scheduleGrouped = serializer.validated_data['scheduleGrouped']
+            data.save()
+            return Response({'status': 'OK'})
+        else:
+            return Response(serializer.errors)

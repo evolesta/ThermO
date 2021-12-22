@@ -12,7 +12,9 @@ router.register(r'sensors', views.SensorsViewSet)
 router.register(r'boilers', views.BoilersViewSet)
 router.register(r'honeywellSensors', views.HoneywellSensorsViewSet)
 router.register(r'heatpoint', views.HeatpointViewSet, basename='heatpoint')
-router.register(r'schedule', views.ScheduleViewSet)
+router.register(r'schedule-single', views.SingleDaySchedule)
+router.register(r'schedule-grouped', views.GroupedWeekSchedule)
+router.register(r'settings', views.SettingViewSet, basename='settings')
 
 # Wire up our API using automatic URL routing.
 # Additionally, we include login URLs for the browsable API.
