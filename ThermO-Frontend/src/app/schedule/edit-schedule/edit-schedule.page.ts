@@ -17,6 +17,7 @@ export class EditSchedulePage implements OnInit {
 
   id: number;
   model: Schedule = new Schedule();
+  groupedActive: boolean;
   public weekdays: KeyValue<number, string>[] = [
     { key: 1, value: 'Maandag' },
     { key: 2, value: 'Dinsdag' },
@@ -29,6 +30,7 @@ export class EditSchedulePage implements OnInit {
 
   ngOnInit() {
     this.id = this.navParams.get('id');
+    this.groupedActive = this.navParams.get('grouped');
     this.getScheduleData();
   }
 
@@ -41,13 +43,23 @@ export class EditSchedulePage implements OnInit {
 
   getScheduleData()
   {
-    this.http.get('/schedule/' + this.id + '/').subscribe(data => {
-      const response:any = data.body;
-      this.model.weekday = response.weekday;
-      this.model.start = response.start;
-      this.model.end = response.end;
-      this.model.temperature = response.temperature;
-    });
+    if (this.groupedActive)
+    {
+      this.http.get('/schedule-grouped/' + this.id + '/').subscribe(resp => {
+        const response:any = resp.body;
+        this.model = new Schedule(0, response.group, response.start, response.end, response.temperature);
+      });
+    }
+    else
+    {
+      this.http.get('/schedule-single/' + this.id + '/').subscribe(resp => {
+        const response:any = resp.body;
+        this.model.weekday = response.weekday;
+        this.model.start = response.start;
+        this.model.end = response.end;
+        this.model.temperature = response.temperature;
+      });
+    }
   }
 
   changeTempValue(event)
@@ -81,7 +93,10 @@ export class EditSchedulePage implements OnInit {
 
   submitSchedule(formdata: any)
   {
-    this.http.put('/schedule/' + this.id + '/', formdata).subscribe(resp => {
+    var url;
+    (this.groupedActive) ? url = '/schedule-grouped/' : url = '/schedule-single/';
+    
+    this.http.put(url + this.id + '/', formdata).subscribe(resp => {
       this.modalController.dismiss({edit: true});
     });
   }
@@ -91,6 +106,7 @@ export class EditSchedulePage implements OnInit {
 class Schedule
 {
   constructor(public weekday:number = 0,
+    public group:string = '',
     public start:string = '',
     public end:string = '',
     public temperature: number = 0) {}
