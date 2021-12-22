@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar color="primary">
-    <ion-title></ion-title>
+    <ion-title>Reeks toevoegen</ion-title>
     <ion-fab horizontal="end" vertical="center">
       <ion-fab-button size="small" color="tertiary" (click)="dismissModal()">
         <ion-icon name="close"></ion-icon>
@@ -15,11 +15,11 @@
   <ion-list>
     <ion-item>
       <ion-label>Dag / groep</ion-label>
-      <ion-select name="group" *ngIf="groupedActive" [(ngModel)]="model.weekday">
+      <ion-select name="group" *ngIf="groupedActive" [(ngModel)]="model.group">
           <ion-select-option value="weekday">Werkdagen (ma-vrij)</ion-select-option>
           <ion-select-option value="weekend">Weekend (za-zo)</ion-select-option>
       </ion-select>
-      <ion-select name="weekday" *ngIf="!groupedActive" [(ngModel)]="model.group">
+      <ion-select name="weekday" *ngIf="!groupedActive" [(ngModel)]="model.weekday">
           <ion-select-option *ngFor="let weekday of weekdays" value="{{ weekday.key }}">{{ weekday.value }}</ion-select-option>
       </ion-select>
     </ion-item>

@@ -30,6 +30,7 @@ export class AddSchedulePage implements OnInit {
 
   ngOnInit() {
     this.groupedActive = this.navParams.get('grouped');
+    this.model = new Schedule(0, this.navParams.get('group'), '', '', 20.0);
   }
 
   dismissModal() {

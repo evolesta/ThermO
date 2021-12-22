@@ -79,11 +79,15 @@ export class SchedulePage implements OnInit {
     return await modal.present();
   }
 
-  async openEditScheduleModal(id: number)
+  async openEditScheduleModal(id: number, group: string)
   {
     const modal = await this.modalController.create({
       component: EditSchedulePage,
-      componentProps: { id: id }
+      componentProps: { 
+        id: id,
+        grouped: this.model.active,
+        group: group
+      }
     });
 
     modal.onDidDismiss().then(data => {
