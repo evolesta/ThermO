@@ -9,6 +9,13 @@ refreshTokenUrl = "https://api.honeywell.com/oauth2/token"
 honeywellObj = Honeywell.objects.get(pk=1)
 
 class Honeywell():
+    def getAccessToken():
+        # return the token from database
+        return honeywellObj.accessToken
+    
+    def getApikey():
+        return honeywellObj.apikey
+
     # generate a new temporary access token with a refresh token from the db
     def refreshAccessToken():
 
@@ -42,9 +49,12 @@ class Honeywell():
         else:
             return True
 
-    def getAccessToken():
-        # return the token from database
-        return honeywellObj.accessToken
-    
-    def getApikey():
-        return honeywellObj.apikey
+    def getThermostatData(locationID, deviceID):
+        try:
+            HEADERS = {"Authorization": "Bearer " + honeywellObj.accessToken}
+            URL = 'https://api.honeywell.com/v2/devices/thermostats/' + deviceID + '?locationId=' + locationID + '&apikey=' + honeywellObj.apikey
+            response = requests.get(URL, headers=HEADERS)
+        except requests.exceptions.RequestException as e:
+            print(e)
+
+        return response.json()

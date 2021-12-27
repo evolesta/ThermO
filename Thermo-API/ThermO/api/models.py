@@ -23,14 +23,9 @@ class Heatpoint(models.Model):
     temperature = models.FloatField()
     heating = models.BooleanField(default=False)
 
-# rooms where sensors are stored
-class Room(models.Model):
-    name = models.CharField(max_length=60)
-    sensorId = models.IntegerField()
-
 class TemperatureData(models.Model):
     dateTime = models.DateTimeField(auto_now=True)
-    room = models.IntegerField()
+    sensor = models.IntegerField()
     temperature = models.FloatField()
 
 class Honeywell(models.Model):
@@ -43,6 +38,7 @@ class Honeywell(models.Model):
 class Setting(models.Model):
     activeBoiler = models.IntegerField()
     defaultBoilerTemp = models.FloatField()
+    defaultSensor = models.IntegerField(default=0)
     scheduleGrouped = models.BooleanField(default=True)
 
 class SingleDaySchedule(models.Model):
@@ -50,9 +46,11 @@ class SingleDaySchedule(models.Model):
     start = models.TimeField(default='00:00', auto_now=False)
     end = models.TimeField(default='00:00', auto_now=False)
     temperature = models.FloatField()
+    sensor = models.IntegerField(default=0)
 
 class GroupedWeekSchedule(models.Model):
     group = models.CharField(max_length=20)
     start = models.TimeField(default='00:00', auto_now=False)
     end = models.TimeField(default='00:00', auto_now=False)
     temperature = models.FloatField()
+    sensor = models.IntegerField(default=0)
