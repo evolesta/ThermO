@@ -20,7 +20,7 @@ class HoneywellSensorsSerializer(serializers.HyperlinkedModelSerializer):
 class HeatpointSerializer(serializers.ModelSerializer):
     class Meta:
         model = Heatpoint
-        fields = ('heatpoint', 'temperature')
+        fields = ('heatpoint', 'temperature', 'heating', 'activeSensor')
 
 class SingleDayScheduleSerializer(serializers.ModelSerializer):
     class Meta:

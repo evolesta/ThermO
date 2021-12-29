@@ -21,6 +21,7 @@ class Boiler(models.Model):
 class Heatpoint(models.Model):
     heatpoint = models.FloatField()
     temperature = models.FloatField()
+    activeSensor = models.IntegerField(default=0)
     heating = models.BooleanField(default=False)
 
 class TemperatureData(models.Model):

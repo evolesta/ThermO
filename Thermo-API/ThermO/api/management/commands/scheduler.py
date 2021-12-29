@@ -31,11 +31,14 @@ class Command(BaseCommand):
         for schedule in schedules:
                      # check if the current schedule is in range with start & end
                     if schedule.start <= currentDateTime.time() <= schedule.end:
+                        print('Schedule of ' + str(schedule.start) + ' - ' + str(schedule.end) + ' is active')
+                        
                         # check if heatpoint needs to be changed
                         heatpoint = Heatpoint.objects.get(pk=1)
                         if not heatpoint.heatpoint == schedule.temperature:
                             # set temp from schedule
                             heatpoint.heatpoint = schedule.temperature
+                            heatpoint.activeSensor = schedule.sensor
                             heatpoint.save()
-                            print('Heatpoint has been set to schedule range to ' + schedule.temperature)
+                            print('Heatpoint has been set to ' + str(schedule.temperature))
                         break

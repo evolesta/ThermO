@@ -4,15 +4,9 @@ import requests
 from datetime import datetime 
 
 class Command(BaseCommand):
-    def add_arguments(self, parser):
-        parser.add_argument(
-            'sensorId',
-            type=int,
-            help='Geef het ID op van de sensor'
-        )
-
     def handle(self, *args, **options):
-        sensor = Sensor.objects.get(pk=options['sensorId'])
+        heatpointObj = Heatpoint.objects.get(pk=1)
+        sensor = Sensor.objects.get(pk=heatpointObj.activeSensor)
 
         # get current sensor temperature
         try:
@@ -32,7 +26,6 @@ class Command(BaseCommand):
             print('Temperature has been added to the database')
             
         # write current temp to model
-        heatpointObj = Heatpoint.objects.get(pk=1)
         heatpointObj.temperature = jsonData['temperature']
         heatpointObj.save()
 
@@ -45,6 +38,8 @@ class Command(BaseCommand):
 
         # check if the desired temp is below the heatpoint and if we're not already heating
         if temperature < heatpointObj.heatpoint and not heatpointObj.heating:
+            print('Sending start heat command to boiler controller:')
+
             # send start heating command to boiler controller
             try:
                 requests.get(controllerURL + '/startHeating?temperature=64')
@@ -53,9 +48,13 @@ class Command(BaseCommand):
 
             heatpointObj.heating = True
             heatpointObj.save()
+            print('Boiler is starting to heat the environment')
+            exit()
 
         # check if the desired temperature is equal or higher then the heatpoint and were heating
         if temperature >= heatpointObj.heatpoint and heatpointObj.heating:
+            print('Sending stop heating command to boiler controller:')
+
             # send stop heating signal to boiler controller
             try:
                 requests.get(controllerURL + '/stopHeating')
@@ -64,3 +63,7 @@ class Command(BaseCommand):
                 
             heatpointObj.heating = False
             heatpointObj.save()
+            print('Boiler is going to stop heating - desired temperature has been reached')
+            exit()
+
+        print('Temperature is OK or boiler is still heating')
