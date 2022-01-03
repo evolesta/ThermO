@@ -22,6 +22,7 @@ export class SchedulePage implements OnInit {
     7: 'Zondag',
   };
   public scheduleData: any;
+  public sensorsData: any;
   public start: any;
   public end: any;
   public model: GroupedDaysView = new GroupedDaysView();
@@ -48,6 +49,7 @@ export class SchedulePage implements OnInit {
 
         this.http.get(url).subscribe(resp => {
           this.scheduleData = resp.body;
+          console.log(this.scheduleData)
         });
     });
   }

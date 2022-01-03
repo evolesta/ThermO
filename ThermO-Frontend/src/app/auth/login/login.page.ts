@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { MenuController } from '@ionic/angular';
+import { AlertController, MenuController } from '@ionic/angular';
 import { AuthService } from './auth.service';
 
 @Component({
@@ -11,10 +11,12 @@ import { AuthService } from './auth.service';
 export class LoginPage implements OnInit {
 
   model: Login = new Login();
+  error: string;
 
   constructor(private menu: MenuController,
     private auth: AuthService,
-    private router: Router) { }
+    private router: Router,
+    private alertController: AlertController) { }
 
   ngOnInit() {
     this.menu.enable(false);
@@ -24,7 +26,18 @@ export class LoginPage implements OnInit {
   performLogin(formdata: any) {
     this.auth.login(formdata).subscribe(success => {
       // check for succesfull login
-      success && this.router.navigateByUrl('/thermostat');
+      if (success) {
+        this.router.navigateByUrl('/thermostat');
+      }
+      else {
+        this.alertController.create({
+          header: 'Inloggen mislukt',
+          message: 'Onjuiste gebruikersnaam en/of wachtwoord.',
+          buttons: ['OK']
+        }).then(alertRes => {
+          alertRes.present();
+        });
+      }
     });
   }
 

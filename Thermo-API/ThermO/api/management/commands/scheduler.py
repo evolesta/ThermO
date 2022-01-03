@@ -29,9 +29,9 @@ class Command(BaseCommand):
         currentDateTime = datetime.now()
 
         for schedule in schedules:
-                     # check if the current schedule is in range with start & end
-                    if schedule.start <= currentDateTime.time() <= schedule.end:
-                        print('Schedule of ' + str(schedule.start) + ' - ' + str(schedule.end) + ' is active')
+                     # check if the current schedule time is in line with the current time
+                    if schedule.start == currentDateTime.time():
+                        print('Schedule of ' + str(schedule.start) + ' is active')
                         
                         # check if heatpoint needs to be changed
                         heatpoint = Heatpoint.objects.get(pk=1)

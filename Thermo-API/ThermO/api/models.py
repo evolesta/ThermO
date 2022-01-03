@@ -45,13 +45,11 @@ class Setting(models.Model):
 class SingleDaySchedule(models.Model):
     weekday = models.IntegerField()
     start = models.TimeField(default='00:00', auto_now=False)
-    end = models.TimeField(default='00:00', auto_now=False)
     temperature = models.FloatField()
     sensor = models.IntegerField(default=0)
 
 class GroupedWeekSchedule(models.Model):
     group = models.CharField(max_length=20)
     start = models.TimeField(default='00:00', auto_now=False)
-    end = models.TimeField(default='00:00', auto_now=False)
     temperature = models.FloatField()
     sensor = models.IntegerField(default=0)

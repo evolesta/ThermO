@@ -7,10 +7,10 @@
 
   <form (ngSubmit)="performLogin(loginForm.value)" #loginForm="ngForm">
   <ion-item>
-    <ion-input placeholder="Gebruikersnaam" name="username" [(ngModel)]="model.username"></ion-input>
+    <ion-input placeholder="Gebruikersnaam" name="username" [(ngModel)]="model.username" required></ion-input>
   </ion-item>
   <ion-item>
-    <ion-input placeholder="Wachtwoord" type="password" name="password" [(ngModel)]="model.password"></ion-input>
+    <ion-input placeholder="Wachtwoord" type="password" name="password" [(ngModel)]="model.password" required></ion-input>
   </ion-item>
   <br/>
   <ion-item>
