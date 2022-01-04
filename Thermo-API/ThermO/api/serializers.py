@@ -27,10 +27,20 @@ class SingleDayScheduleSerializer(serializers.ModelSerializer):
         model = SingleDaySchedule
         fields = ('weekday', 'start', 'temperature', 'id', 'sensor')
 
+    def to_representation(self, instance):
+        response = super().to_representation(instance)
+        response['sensor'] = SensorsSerializer(instance.sensor).data
+        return response 
+
 class GroupedWeekScheduleSerializer(serializers.ModelSerializer):
     class Meta:
         model = GroupedWeekSchedule
-        fields = ('group', 'start', 'temperature', 'id', 'sensor')    
+        fields = ('group', 'start', 'temperature', 'id', 'sensor')
+
+    def to_representation(self, instance):
+        response = super().to_representation(instance)
+        response['sensor'] = SensorsSerializer(instance.sensor).data
+        return response 
 
 class SettingSerializer(serializers.ModelSerializer):
     class Meta:

@@ -26,11 +26,19 @@ export class AddSchedulePage implements OnInit {
 
   desiredTemperature: number = 20.0;
   groupedActive: boolean;
+  sensors: any;
   model: Schedule = new Schedule();
 
   ngOnInit() {
     this.groupedActive = this.navParams.get('grouped');
-    this.model = new Schedule(0, this.navParams.get('group'), '', '', 20.0);
+    this.model = new Schedule(0, this.navParams.get('group'), '', 20.0);
+    this.getSensors();
+  }
+
+  getSensors() {
+    this.http.get('/sensors/').subscribe(resp => {
+      this.sensors = resp.body;
+    });
   }
 
   dismissModal() {
@@ -61,6 +69,6 @@ class Schedule
   constructor(public weekday: number = 0,
     public group:string = '',
     public start: string = '',
-    public end: string = '',
-    public temperature: number = 20.0) {}
+    public temperature: number = 20.0,
+    public sensor: number = 0) {}
 }

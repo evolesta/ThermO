@@ -35,8 +35,10 @@
         <ion-input type="time" name="start" [(ngModel)]="model.start"></ion-input>
       </ion-item>
       <ion-item>
-        <ion-label>Eindtijd</ion-label>
-        <ion-input type="time" name="end" [(ngModel)]="model.end"></ion-input>
+        <ion-label>Sensor</ion-label>
+        <ion-select name="sensor" [(ngModel)]="model.sensor" [value]="model.sensor">
+          <ion-select-option *ngFor="let sensor of sensors" value="{{ sensor.id }}">{{ sensor.name }}</ion-select-option>
+        </ion-select>
       </ion-item>
       <ion-item>
         <ion-label>Gewenste temperatuur:</ion-label>

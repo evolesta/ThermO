@@ -8,19 +8,16 @@ import { HttpService } from '../http.service';
   styleUrls: ['./thermostat.page.scss'],
 })
 export class ThermostatPage implements OnInit {
-  desiredTemperature;
-  currentTemperature;
+  desiredTemperature: number;
+  currentTemperature: number;
+  model: Thermostat = new Thermostat();
 
   constructor(private menu: MenuController,
     private http: HttpService) { }
 
   ngOnInit() {
-    this.menu.enable(true); // enable menu for redirects from login
+    //this.menu.enable(true); // enable menu for redirects from login
     this.getTemperatures();
-
-    $("#slider1").roundSlider({
-      value: 45
-    });
   }
 
   // gets the current temperatures from the back-end
@@ -30,6 +27,7 @@ export class ThermostatPage implements OnInit {
       const response:any = resp.body;
       this.currentTemperature = response.temperature;
       this.desiredTemperature = response.heatpoint;
+      this.model = new Thermostat(response.heatpoint);
     });
   }
 
@@ -40,12 +38,10 @@ export class ThermostatPage implements OnInit {
     this.desiredTemperature = event.target.value;
   }
 
-  updateTemperature(event)
+  updateTemperature(formdata: any)
   {
-    console.log('Zet volgende naar api' + event.target.value);
-
     const body = {
-      'heatpoint': this.desiredTemperature,
+      'heatpoint': formdata.desiredTemperature,
       'temperature': this.currentTemperature
     };
 
@@ -53,4 +49,9 @@ export class ThermostatPage implements OnInit {
       console.log(response);
     });
   }
+}
+
+class Thermostat
+{
+  constructor(public desiredTemperature:number = 0) {}
 }

@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models.deletion import CASCADE
 
 # Create your models here.
 class Sensor(models.Model):
@@ -47,9 +48,11 @@ class SingleDaySchedule(models.Model):
     start = models.TimeField(default='00:00', auto_now=False)
     temperature = models.FloatField()
     sensor = models.IntegerField(default=0)
+    sensor = models.ForeignKey(Sensor, on_delete=CASCADE, null=True, db_constraint=False, related_name="sensor_data_single")
 
 class GroupedWeekSchedule(models.Model):
     group = models.CharField(max_length=20)
     start = models.TimeField(default='00:00', auto_now=False)
     temperature = models.FloatField()
     sensor = models.IntegerField(default=0)
+    sensor = models.ForeignKey(Sensor, on_delete=CASCADE, null=True, db_constraint=False, related_name="sensor_data_group")
