@@ -18,6 +18,7 @@ export class EditSchedulePage implements OnInit {
   id: number;
   model: Schedule = new Schedule();
   groupedActive: boolean;
+  sensors: any;
   public weekdays: KeyValue<number, string>[] = [
     { key: 1, value: 'Maandag' },
     { key: 2, value: 'Dinsdag' },
@@ -47,19 +48,20 @@ export class EditSchedulePage implements OnInit {
     {
       this.http.get('/schedule-grouped/' + this.id + '/').subscribe(resp => {
         const response:any = resp.body;
-        this.model = new Schedule(0, response.group, response.start, response.end, response.temperature);
+        this.model = new Schedule(0, response.group, response.start, response.sensor?.id, response.temperature);
       });
     }
     else
     {
       this.http.get('/schedule-single/' + this.id + '/').subscribe(resp => {
         const response:any = resp.body;
-        this.model.weekday = response.weekday;
-        this.model.start = response.start;
-        this.model.end = response.end;
-        this.model.temperature = response.temperature;
+        this.model = new Schedule(response.weekday, '', response.start, response.sensor?.id, response.temperature);
       });
     }
+
+    this.http.get('/sensors/').subscribe(resp => {
+      this.sensors = resp.body;
+    });
   }
 
   changeTempValue(event)
@@ -80,7 +82,10 @@ export class EditSchedulePage implements OnInit {
         {
           text: 'Verwijderen',
           handler: () => {
-            this.http.delete('/schedule/' + this.id + '/').subscribe(resp => {
+            var url;
+            (this.groupedActive) ? url = '/schedule-grouped/' : url = '/schedule-single/';
+
+            this.http.delete(url + this.id + '/').subscribe(resp => {
               this.modalController.dismiss({delete: true});
             });
           }
@@ -108,6 +113,6 @@ class Schedule
   constructor(public weekday:number = 0,
     public group:string = '',
     public start:string = '',
-    public end:string = '',
+    public sensor:number = 0,
     public temperature: number = 0) {}
 }

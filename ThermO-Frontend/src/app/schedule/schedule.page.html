@@ -17,7 +17,8 @@
     <ion-item *ngFor="let schedule of scheduleData" (click)="openEditScheduleModal(schedule.id, '')">
       <ion-label>
         <h2><b>{{ weekdays[schedule.weekday] }}</b></h2>
-        <h2>{{ schedule.start }} - {{ schedule.end }}</h2>
+        <h2>{{ schedule.start }}</h2>
+        <p>Sensor: {{ schedule.sensor.name }}</p>
         <p>{{ schedule.temperature }} °C</p>
         </ion-label>
     </ion-item>
@@ -35,7 +36,8 @@
     <ng-container *ngFor="let schedule of scheduleData">
       <ion-item *ngIf="schedule.group == 'weekday'" (click)="openEditScheduleModal(schedule.id, 'weekday')">
         <ion-label>
-          <h2>{{ schedule.start }} - {{ schedule.end }}</h2>
+          <h2>{{ schedule.start }}</h2>
+          <p>Sensor: {{ schedule.sensor.name }}</p>
           <p>{{ schedule.temperature }} °C</p>
         </ion-label>
       </ion-item>
@@ -50,7 +52,8 @@
     <ng-container *ngFor="let schedule of scheduleData">
       <ion-item *ngIf="schedule.group == 'weekend'" (click)="openEditScheduleModal(schedule.id, 'weekend')">
         <ion-label>
-          <h2>{{ schedule.start }} - {{ schedule.end }}</h2>
+          <h2>{{ schedule.start }}</h2>
+          <p>Sensor: {{ schedule.sensor.name }}</p>
           <p>{{ schedule.temperature }} °C</p>
         </ion-label>
       </ion-item>
