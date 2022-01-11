@@ -1,0 +1,22 @@
+[
+    {
+        "model": "api.heatpoint",
+        "pk": 1,
+        "fields": {
+            "heatpoint": 18,
+            "temperature": 18,
+            "activeSensor": 0,
+            "heating": false
+        }
+    },
+    {
+        "model": "api.setting",
+        "pk": 1,
+        "fields": {
+            "activeBoiler": 0,
+            "defaultBoilerTemp": 60,
+            "defaultSensor": 0,
+            "scheduleGrouped": true
+        }
+    }
+]
