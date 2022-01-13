@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AlertController, MenuController } from '@ionic/angular';
+import { ToastController, MenuController } from '@ionic/angular';
 import { AuthService } from './auth.service';
 
 @Component({
@@ -16,7 +16,7 @@ export class LoginPage implements OnInit {
   constructor(private menu: MenuController,
     private auth: AuthService,
     private router: Router,
-    private alertController: AlertController) { }
+    private toastController: ToastController) { }
 
   ngOnInit() {
     this.menu.enable(false);
@@ -30,12 +30,13 @@ export class LoginPage implements OnInit {
         this.router.navigateByUrl('/thermostat');
       }
       else {
-        this.alertController.create({
-          header: 'Inloggen mislukt',
-          message: 'Onjuiste gebruikersnaam en/of wachtwoord.',
-          buttons: ['OK']
-        }).then(alertRes => {
-          alertRes.present();
+        this.toastController.create({
+          message: 'Inloggen mislukt. Onjuiste gebruikersnaam/wachtwoord.',
+          color: 'danger',
+          duration: 4000,
+          position: 'top'
+        }).then(toast => {
+          toast.present();
         });
       }
     });
