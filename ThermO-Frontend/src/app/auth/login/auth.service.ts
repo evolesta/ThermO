@@ -1,9 +1,8 @@
 import { HttpClient, HttpHandler, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { APIURL, REFRESHTOKEN_LIFETIME, ACCESSTOKEN_LIFETIME } from 'src/app/settings';
-import { Subject } from 'rxjs';
+import { APIURL} from 'src/app/settings';
+import { Observable, Subject } from 'rxjs';
 import { StorageService } from 'src/app/storage.service';
-import { JwtHelperService } from '@auth0/angular-jwt';
 
 @Injectable({
   providedIn: 'root'
@@ -14,8 +13,8 @@ export class AuthService {
     private storage: StorageService) { }
 
   // login to API with username and and receive a set of tokens
-  login(formdata: any): Subject<Boolean> {
-    var loginSuccess = new Subject<Boolean>();
+  login(formdata: any): Observable<Boolean> {
+    const result = new Subject<Boolean>();
 
     // perform POST call to API
     this.http.post(APIURL + '/api/token/', formdata, { observe: 'response' }).subscribe(resp => {
@@ -28,18 +27,18 @@ export class AuthService {
       this.storage.set('refreshToken', response.refresh);
       this.storage.set('stayLoggedin', formdata.stayLoggedin)
 
-      loginSuccess.next(true);
+      result.next(true);
     },
     (error) => {
       // error in response
       console.log(error);
-      loginSuccess.next(false);
+      result.next(false);
     });
 
-    return loginSuccess;
+    return result.asObservable();
   }
 
-  refresh(): any
+  refresh(): string
   { 
     var accessToken;
 
@@ -60,5 +59,48 @@ export class AuthService {
     });
 
     return accessToken;
+  }
+
+  // checks if the user already has set a pincode
+  isPinConfigured(): Promise<Boolean> {
+
+    return this.storage.get('pincode').then(pincode => {
+
+      if (pincode == null) {
+        // no pin has been set
+        return false;
+      }
+
+      return true;
+    });
+  }
+
+  // save new pincode to storage
+  saveNewPincode(pincode: string) {
+    this.storage.set('pincode', pincode);
+  }
+
+  // validate pincode
+  validatePincode(pincode: string): Promise<Boolean> {
+
+    return this.storage.get('pincode').then(dbPin => {
+      if (pincode == dbPin) {
+        return true;
+      } else {
+        return false;
+      }
+    });
+  }
+
+  isUserAlreadyLoggedin(): Promise<Boolean> {
+    
+    return this.storage.get('stayLoggedin').then(stayLoggedin => {
+      
+      if (stayLoggedin == null) {
+        return false;
+      }
+
+      return stayLoggedin; // storage contains the boolean to return
+    })
   }
 }
