@@ -158,6 +158,28 @@ If you hit a HTTP 500 error, check out the Apache error logs trough Webmin (Syst
 
 To test out the API, you could use Postman to explore the routes. You need to be authenticated with a access token to retrieve a succesful response. Check out the API docs. 
 
+10. Setup cronjobs
+To frequently check the current temperature from the sensor, and check if the scheduler needs to set a new heatpoint, we'll need to set the crontab with new jobs to run each minute.
+These back-end scripts run using Django custom commands from manage.py.
+To ease things up, i wrote a small generic bash script to use with crontab.
+Just use `crontab.sh /path/to/django command` which is available in the API root directory.
+
+***Make sure the script has execute permissions:***
+```
+sudo chmod +x /var/www/api/crontab.sh
+```
+
+- Go to System > Schedule Cron Jobs
+- Click **create a new scheduled cron job**
+- Enter **root** at **execute cron job as**
+- At **command**, enter **/var/www/api/crontab.sh /var/www/api scheduler**
+- Enter a matching description for your needs
+- Hit **Times and dates selected below .. ** and make sure **all** is selected at minutes, hours, days, months and weekdays
+- Hit the **create** button
+- Repeat this steps and enter **/var/www/api/crontab.sh /var/www/api checkTemperature** as command to execute
+
+To test the commands, you can open a cron job and hit the **run now** button. The checkTemperature script will output data.
+
 ## Front-end webapp
 You could use the Front-end GUI webapp to easy manage your server back-end, without making the calls yourself. 
 The front-end app is written in Ionic with Angular. Ionic supports multi-platform deployment, so your also able to compile a Android or IOs app.

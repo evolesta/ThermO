@@ -30,7 +30,11 @@ const routes: Routes = [
   {
     path: 'schedule',
     loadChildren: () => import('./schedule/schedule.module').then( m => m.SchedulePageModule)
+  },  {
+    path: 'logout',
+    loadChildren: () => import('./auth/logout/logout.module').then( m => m.LogoutPageModule)
   },
+
 ];
 
 @NgModule({
