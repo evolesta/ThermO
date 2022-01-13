@@ -5,65 +5,81 @@ from datetime import datetime
 
 class Command(BaseCommand):
     def handle(self, *args, **options):
+        
+        # get active boiler and controller URL
         heatpointObj = Heatpoint.objects.get(pk=1)
-        sensor = Sensor.objects.get(pk=heatpointObj.activeSensor)
-
-        # get current sensor temperature
-        try:
-            response = requests.get('http://' + sensor.sensorAddress)
-        except requests.exceptions.RequestException as e:
-            raise CommandError(e)
-
-        jsonData = response.json()
-        print('Current sensor temperature: ' + jsonData['temperature'])
-
-        # check if we are on the whole hour to submit the data to model
-        currentTime = datetime.now()
-        if currentTime.strftime('%M') == 00:
-            # submit to database model
-            TempDataObj = TemperatureData(sensor=sensor.id, temperature=jsonData['temperature'])
-            TempDataObj.save()
-            print('Temperature has been added to the database')
-            
-        # write current temp to model
-        heatpointObj.temperature = jsonData['temperature']
-        heatpointObj.save()
-
-        # get active boiler
         settings = Setting.objects.get(pk=1)
         boilerController = Boiler.objects.get(pk=settings.activeBoiler)
         controllerURL = 'http://' + boilerController.boilerAddress
 
-        temperature = float(jsonData['temperature']) # convert to float
+        temperature = float(heatpointObj.temperature) # convert to float
+        heatpoint = heatpointObj.heatpoint
+        threshold = settings.heatpointThreshold
+        heating = heatpointObj.heating
 
-        # check if the desired temp is below the heatpoint and if we're not already heating
-        if temperature < heatpointObj.heatpoint and not heatpointObj.heating:
-            print('Sending start heat command to boiler controller:')
+        print("It's " + str(temperature) + "°C inside and the heatpoint has been set to " + str(heatpoint) + "°C")
+        print("Check for action...")
 
-            # send start heating command to boiler controller
+        # checking if we need to stop heating
+        if temperature > heatpoint and heating:
+            # we've reached the optimal temperature, stop heating
+            print('Desired temperature has been reached, stop heating...')
+
             try:
-                requests.get(controllerURL + '/startHeating?temperature=64')
+                requests.get(controllerURL + '/stopHeating')
+
+                print("Command sent to boiler controller")
+                thermostatData = ThermostatData(
+                    temperature = temperature,
+                    heatpoint = heatpoint,
+                    action = 'Succesfully sent stop command to boiler controller'
+                )
+                thermostatData.save()
+
             except requests.exceptions.RequestException as e:
+                print("Failed to send command to boiler controller, please check connection:")
+                thermostatData = ThermostatData(
+                    temperature = temperature,
+                    heatpoint = heatpoint,
+                    action = 'Failed to send stop command to boiler controller.'
+                )
+                thermostatData.save()
+                raise CommandError(e)
+
+            heatpointObj.heating = False
+            heatpointObj.save()
+            exit()
+        
+        # checking if we need to fire up the boiler for a short period bc the difference is low
+        if heatpoint - temperature >= threshold and not heating:
+            # lets heat the boiler for 5 minutes
+            print('The current temperature is below the heatpoint threshold, start heating...')
+
+            try:
+                requests.get(controllerURL + '/startHeating?temperature=60')
+                print("Command sent to boiler")
+                thermostatData = ThermostatData(
+                    temperature = temperature,
+                    heatpoint = heatpoint,
+                    action = 'Succesfully sent start command to boiler controller'
+                )
+                thermostatData.save()
+
+            except requests.exceptions.RequestException as e:
+                print("Failed to send command to boiler controller, please check connection:")
+                thermostatData = ThermostatData(
+                    temperature = temperature,
+                    heatpoint = heatpoint,
+                    action = 'Failed to send start command to boiler controller.'
+                )
+                thermostatData.save()
                 raise CommandError(e)
 
             heatpointObj.heating = True
             heatpointObj.save()
-            print('Boiler is starting to heat the environment')
             exit()
 
-        # check if the desired temperature is equal or higher then the heatpoint and were heating
-        if temperature >= heatpointObj.heatpoint and heatpointObj.heating:
-            print('Sending stop heating command to boiler controller:')
-
-            # send stop heating signal to boiler controller
-            try:
-                requests.get(controllerURL + '/stopHeating')
-            except requests.exceptions.RequestException as e:
-                raise CommandError(e)
-                
-            heatpointObj.heating = False
-            heatpointObj.save()
-            print('Boiler is going to stop heating - desired temperature has been reached')
-            exit()
-
-        print('Temperature is OK or boiler is still heating')
+        if heating:
+            print("No action needed: Boiler is already heating the environment")
+        else:
+            print("No action needed: The inside temperature is above the threshold")

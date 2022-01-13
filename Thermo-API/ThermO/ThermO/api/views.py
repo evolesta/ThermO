@@ -2,6 +2,7 @@ from datetime import date
 from typing import Set
 from django.db.models import query
 from django.shortcuts import get_object_or_404, render
+from django.core import management
 
 from rest_framework import viewsets
 from rest_framework.decorators import permission_classes
@@ -24,10 +25,15 @@ class BoilersViewSet(viewsets.ModelViewSet):
     serializer_class = BoilersSerializer
     permission_classes = [IsAuthenticated]
 
-class HoneywellSensorsViewSet(viewsets.ModelViewSet):
-    queryset = HoneywellSensor.objects.all()
-    serializer_class = HoneywellSensorsSerializer
+
+class UserPincodeViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticated]
+    serializer_class = UserPincodeSerializer
+
+    def get_queryset(self):
+        username = self.request.query_params.get('username')
+        return UserPincode.objects.filter(username=username)
+
 
 class HeatpointViewSet(viewsets.ViewSet):
     permission_classes = [IsAuthenticated]
@@ -46,6 +52,7 @@ class HeatpointViewSet(viewsets.ViewSet):
             data.heatpoint = serializer.validated_data['heatpoint']
             data.temperature = serializer.validated_data['temperature']
             data.save()
+            management.call_command('checkTemperature')
             return Response({'status': 'OK'})
         else:
             return Response(serializer.errors)
@@ -77,7 +84,14 @@ class SettingViewSet(viewsets.ViewSet):
             data.activeBoiler = serializer.validated_data['activeBoiler']
             data.defaultBoilerTemp = serializer.validated_data['defaultBoilerTemp']
             data.scheduleGrouped = serializer.validated_data['scheduleGrouped']
+            data.weatherData = serializer.validated_data['weatherData']
+            data.openWeathermapApikey = serializer.validated_data['openWeathermapApikey']
             data.save()
             return Response({'status': 'OK'})
         else:
             return Response(serializer.errors)
+
+class ThermostatDataViewSet(viewsets.ModelViewSet):
+    permission_classes = [IsAuthenticated]
+    queryset = ThermostatData.objects.all()
+    serializer_class = ThermostatDataSerializer

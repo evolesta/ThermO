@@ -1,26 +1,24 @@
+from dataclasses import fields
 from rest_framework import serializers
 from rest_framework.utils import field_mapping
 from .models import *
 
 class SensorsSerializer(serializers.HyperlinkedModelSerializer):
+    id = serializers.IntegerField(read_only=True)
     class Meta:
         model = Sensor
-        fields = ('name', 'sensorAddress', 'active', 'id')
+        fields = '__all__'
 
 class BoilersSerializer(serializers.HyperlinkedModelSerializer):
+    id = serializers.IntegerField(read_only=True)
     class Meta:
         model = Boiler
-        fields = ('name', 'boilerAddress', 'id')
-
-class HoneywellSensorsSerializer(serializers.HyperlinkedModelSerializer):
-    class Meta:
-        model = HoneywellSensor
-        fields = ('name', 'locationId', 'deviceId', 'active', 'id')
+        fields = '__all__'
 
 class HeatpointSerializer(serializers.ModelSerializer):
     class Meta:
         model = Heatpoint
-        fields = ('heatpoint', 'temperature', 'heating', 'activeSensor')
+        fields = '__all__'
 
 class SingleDayScheduleSerializer(serializers.ModelSerializer):
     class Meta:
@@ -45,4 +43,16 @@ class GroupedWeekScheduleSerializer(serializers.ModelSerializer):
 class SettingSerializer(serializers.ModelSerializer):
     class Meta:
         model = Setting
-        fields = ('activeBoiler', 'defaultBoilerTemp', 'scheduleGrouped', 'defaultSensor')
+        fields = '__all__'
+
+class UserPincodeSerializer(serializers.ModelSerializer):
+    id = serializers.IntegerField(read_only=True)
+    class Meta:
+        model = UserPincode
+        fields = '__all__'
+
+class ThermostatDataSerializer(serializers.ModelSerializer):
+    id = serializers.IntegerField(read_only=True)
+    class Meta:
+        model = ThermostatData
+        fields = '__all__'

@@ -34,6 +34,7 @@
     "cordova-plugin-nativestorage": "^2.3.2",
     "cordova-sqlite-storage": "^6.0.0",
     "jquery": "^3.6.0",
+    "js-sha512": "^0.8.0",
     "localforage-cordovasqlitedriver": "^1.8.0",
     "round-slider": "^1.6.1",
     "rxjs": "~6.6.0",

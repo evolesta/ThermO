@@ -40,29 +40,8 @@ export class httpInterceptor implements HttpInterceptor {
                     // token is still valid - add auth to headers
                     request = this.addAuthHeader(request, token);
                 }
-                else if (jwtHelper.isTokenExpired(token))
-                {
-                    this.storage.get('stayLoggedin').then(isTrue => {
-                        if (isTrue)
-                        {
-                            this.storage.get('refreshToken').then(token => {
-                                if (!jwtHelper.isTokenExpired(token))
-                                {
-                                    const newToken = this.auth.refresh();
-                                    request = this.addAuthHeader(request, newToken);
-                                }
-                            });   
-                        }
-                        else
-                        {
-                            this.router.navigateByUrl('/login');
-                            return EMPTY;
-                        }
-                    });
-                }
                 else
                 {
-                    this.router.navigateByUrl('/login');
                     return EMPTY;
                 }
             }

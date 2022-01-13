@@ -1,16 +1,12 @@
+from datetime import datetime
 from django.db import models
 from django.db.models.deletion import CASCADE
+from django.contrib.auth.models import AbstractUser
 
 # Create your models here.
 class Sensor(models.Model):
     name = models.CharField(max_length=60)
     sensorAddress = models.CharField(max_length=60)
-    active = models.BooleanField(default=False)
-
-class HoneywellSensor(models.Model):
-    name = models.CharField(max_length=60)
-    locationId = models.CharField(max_length=60)
-    deviceId = models.CharField(max_length=60)
     active = models.BooleanField(default=False)
 
 # for communication with the boiler
@@ -30,18 +26,20 @@ class TemperatureData(models.Model):
     sensor = models.IntegerField()
     temperature = models.FloatField()
 
-class Honeywell(models.Model):
-    accessToken = models.CharField(max_length=60)
-    refreshToken = models.CharField(max_length=60)
-    apikey = models.CharField(max_length=60)
-    base64String = models.CharField(max_length=100)
-    refreshed_at = models.DateTimeField(auto_now=True)
+class ThermostatData(models.Model):
+    datetime = models.DateTimeField(auto_now=True)
+    temperature = models.FloatField(default=0)
+    heatpoint = models.FloatField(default=0)
+    action = models.CharField(max_length=100)
 
 class Setting(models.Model):
     activeBoiler = models.IntegerField()
     defaultBoilerTemp = models.FloatField()
     defaultSensor = models.IntegerField(default=0)
     scheduleGrouped = models.BooleanField(default=True)
+    weatherData = models.BooleanField(default=False)
+    openWeathermapApikey = models.CharField(max_length=100, default='')
+    heatpointThreshold = models.FloatField(default=0)
 
 class SingleDaySchedule(models.Model):
     weekday = models.IntegerField()
@@ -56,3 +54,7 @@ class GroupedWeekSchedule(models.Model):
     temperature = models.FloatField()
     sensor = models.IntegerField(default=0)
     sensor = models.ForeignKey(Sensor, on_delete=CASCADE, null=True, db_constraint=False, related_name="sensor_data_group")
+
+class UserPincode(models.Model):
+    username = models.CharField(default='', max_length=10)
+    pincode = models.CharField(default='', max_length=4)
