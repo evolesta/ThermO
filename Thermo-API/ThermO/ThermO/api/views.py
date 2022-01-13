@@ -2,6 +2,7 @@ from datetime import date
 from typing import Set
 from django.db.models import query
 from django.shortcuts import get_object_or_404, render
+from django.core import management
 
 from rest_framework import viewsets
 from rest_framework.decorators import permission_classes
@@ -46,6 +47,7 @@ class HeatpointViewSet(viewsets.ViewSet):
             data.heatpoint = serializer.validated_data['heatpoint']
             data.temperature = serializer.validated_data['temperature']
             data.save()
+            management.call_command('checkTemperature')
             return Response({'status': 'OK'})
         else:
             return Response(serializer.errors)

@@ -1,12 +1,13 @@
 <ion-header>
   <ion-toolbar color="primary">
-    <ion-title><ion-icon name="thermometer"></ion-icon>&nbsp;Thermostaat</ion-title>
+    <ion-title>
+      <ion-menu-toggle><ion-icon name="menu-outline" size="large"></ion-icon></ion-menu-toggle>
+      <ion-icon name="thermometer"></ion-icon>&nbsp;Thermostaat
+    </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <form #tempForm="ngForm" (ngSubmit)="updateTemperature(tempForm.value)">
-
     <ion-list>
       <ion-item>
         <ion-label>Huidige temperatuur:</ion-label>
@@ -28,8 +29,11 @@
           <ion-icon slot="end" size="small" name="flame" color="danger"></ion-icon>
           <ion-text slot="end">25 °C</ion-text>
           <ion-range min="15" max="25" step="0.5" snaps="true" color="danger" dualKnobs="false" [(ngModel)]="model.desiredTemperature"
-          (ionChange)="setTemperature($event)" (ionBlur)="updateTemperature($event)" class="circularSlider"></ion-range>
+          (ionChange)="setTemperature($event)" class="circularSlider"></ion-range>
+      </ion-item>
+
+      <ion-item>
+        <ion-button size="default" (click)="updateTemperature(model)"><ion-icon name="save"></ion-icon> Opslaan</ion-button>
       </ion-item>
     </ion-list>
-  </form>
 </ion-content>
