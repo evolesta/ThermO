@@ -68,7 +68,9 @@ export class AuthService {
     this.http.get('/userpincode/?username=' + user).subscribe(resp => {
       const response:any = resp.body;
 
-      if (response[0].username == user) {
+      if (response.length == 0) {
+        result.next(false);
+      } else if (response[0].username == user) {
         result.next(true);
       }
       else {

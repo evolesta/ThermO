@@ -10,6 +10,7 @@ import { HttpService } from '../http.service';
 export class ThermostatPage implements OnInit {
   desiredTemperature: number;
   currentTemperature: number;
+  heating: boolean;
   model: Thermostat = new Thermostat();
 
   constructor(private menu: MenuController,
@@ -18,6 +19,10 @@ export class ThermostatPage implements OnInit {
   ngOnInit() {
     this.menu.enable(true); // enable menu for redirects from login
     this.getTemperatures();
+
+    setInterval(function() {
+      window.location.reload();
+    }, 60000);
   }
 
   // gets the current temperatures from the back-end
@@ -27,6 +32,7 @@ export class ThermostatPage implements OnInit {
       const response:any = resp.body;
       this.currentTemperature = response.temperature;
       this.desiredTemperature = response.heatpoint;
+      this.heating = response.heating;
       this.model = new Thermostat(response.heatpoint);
     });
   }
@@ -46,7 +52,6 @@ export class ThermostatPage implements OnInit {
     };
 
     this.http.put('/heatpoint/1/', body).subscribe(response => {
-      console.log(response);
     });
   }
 }

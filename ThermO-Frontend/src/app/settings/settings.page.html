@@ -24,23 +24,13 @@
     </ion-item>
     <ion-item>
       <ion-label>Temperatuur drempelwaarde</ion-label>
-      <ion-input name="heatpointThreshold" value="True" [(ngModel)]="model.heatpointThreshold"></ion-input>
+      <ion-input name="heatpointThreshold" value="True" type="number" [(ngModel)]="model.heatpointThreshold"></ion-input>
 
     </ion-item>
     <ion-item>
       <ion-label>Gegroepeerd weekschema</ion-label>
       <ion-note>Configureer het weekschema per weekdeel (ma-vrij/za-zo) of per dag</ion-note>
       <ion-toggle name="scheduleGrouped" value="True" [(ngModel)]="model.scheduleGrouped"></ion-toggle>
-    </ion-item>
-    <ion-item>
-      <ion-label>Weerinformatie activeren 
-        <ion-icon name="information-circle-outline" (click)="showInfoToast('De app kan ook het weer van je lokale plaats ophalen en dit tonen. Hiervoor moet je wel eerst een API sleutel opvragen bij openweathermap.org.')"></ion-icon>
-      </ion-label>
-      <ion-toggle name="weatherData" value="True" [(ngModel)]="model.weatherData"></ion-toggle>
-    </ion-item>
-    <ion-item *ngIf="model.weatherData">
-      <ion-label>OpenWeathermap API key</ion-label>
-      <ion-input name="openWeathermapApikey" [(ngModel)]="model.openWeathermapApikey" placeholder="Vraag gratis aan op https://openweathermap.org"></ion-input>
     </ion-item>
     <ion-item>
       <ion-button color="primary" type="submit" size="default"><ion-icon name="save"></ion-icon> Opslaan</ion-button>

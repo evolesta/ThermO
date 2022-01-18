@@ -11,7 +11,6 @@ export class AppComponent {
     { title: 'Thermostaten', url: '/thermostats', icon: 'apps' },
     { title: 'Ketels', url: '/boilers', icon: 'flame' },
     { title: 'Instellingen', url: '/settings', icon: 'settings' },
-    { title: 'Uitloggen', url: '/logout', icon: 'log-out'},
   ];
   public labels = ['Family', 'Friends', 'Notes', 'Work', 'Travel', 'Reminders'];
   constructor() {}

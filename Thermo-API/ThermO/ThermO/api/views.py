@@ -84,8 +84,7 @@ class SettingViewSet(viewsets.ViewSet):
             data.activeBoiler = serializer.validated_data['activeBoiler']
             data.defaultBoilerTemp = serializer.validated_data['defaultBoilerTemp']
             data.scheduleGrouped = serializer.validated_data['scheduleGrouped']
-            data.weatherData = serializer.validated_data['weatherData']
-            data.openWeathermapApikey = serializer.validated_data['openWeathermapApikey']
+            data.heatpointThreshold = serializer.validated_data['heatpointThreshold']
             data.save()
             return Response({'status': 'OK'})
         else:

@@ -120,3 +120,9 @@ ion-note {
 ion-item.selected {
   --color: var(--ion-color-primary);
 }
+
+ion-button {
+  --background: white;
+  --color: black;
+  font-weight: bold;
+}

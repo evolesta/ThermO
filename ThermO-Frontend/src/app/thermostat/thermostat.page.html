@@ -10,10 +10,10 @@
 <ion-content>
     <ion-list>
       <ion-item>
-        <ion-label>Huidige temperatuur:</ion-label>
+        <ion-label>Binnentemperatuur:</ion-label>
         <ion-text><h1>{{currentTemperature}} °C</h1></ion-text>
       </ion-item>
-
+      
       <ion-item-divider>
         <ion-text class="ion-text-center">Temperatuur instellen</ion-text>
       </ion-item-divider>
@@ -24,12 +24,17 @@
       </ion-item>
 
       <ion-item>
+        <ion-label>Ketel:</ion-label>
+        <ion-icon name="flame" color="danger" size="large" *ngIf="heating"></ion-icon>
+      </ion-item>
+
+      <ion-item>
           <ion-icon slot="start" size="small" name="thermometer" color="secondary"></ion-icon>
           <ion-text slot="start">15 °C</ion-text>
-          <ion-icon slot="end" size="small" name="flame" color="danger"></ion-icon>
+          <ion-icon slot="end" size="small" name="thermometer-outline" color="danger"></ion-icon>
           <ion-text slot="end">25 °C</ion-text>
           <ion-range min="15" max="25" step="0.5" snaps="true" color="danger" dualKnobs="false" [(ngModel)]="model.desiredTemperature"
-          (ionChange)="setTemperature($event)" class="circularSlider"></ion-range>
+          (ionChange)="setTemperature($event)" pin="true" ticks="true"></ion-range>
       </ion-item>
 
       <ion-item>

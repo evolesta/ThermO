@@ -32,7 +32,6 @@ export class SettingsPage implements OnInit {
         response.weatherData,
         response.openWeathermapApikey,
         response.heatpointThreshold);
-        console.log(response)
     })
   }
 
@@ -94,5 +93,6 @@ class Setting
     public scheduleGrouped: boolean = true,
     public weatherData: boolean = false,
     public openWeathermapApikey: string = '',
-    public heatpointThreshold: number = 0) {}
+    public heatpointThreshold: number = 0,
+    public weatherCity: string = '') {}
 }
