@@ -9,7 +9,7 @@
 
 <ion-content>
 
-  <ion-list *ngIf="!model.active">
+  <ion-list *ngIf="!model.active" [ngClass]="{'disabled': !scheduleEnabled}">
     <ion-item>
       <ion-label>Gegroepeerde dagen (ma-vrij/za-zo)</ion-label>
       <ion-toggle checked="true" disabled="true" [(ngModel)]="model.active"></ion-toggle>
@@ -27,7 +27,7 @@
     </ion-item>
   </ion-list>
 
-  <ion-list *ngIf="model.active">
+  <ion-list *ngIf="model.active" [ngClass]="{'disabled': !scheduleEnabled}">
     <ion-item>
       <ion-label>Gegroepeerde dagen (ma-vrij/za-zo)</ion-label>
       <ion-toggle checked="true" disabled="true" [(ngModel)]="model.active"></ion-toggle>
@@ -47,7 +47,7 @@
     </ng-container>
   </ion-list>
 
-  <ion-list *ngIf="model.active">
+  <ion-list *ngIf="model.active" [ngClass]="{'disabled': !scheduleEnabled}">
     <ion-item>
       <h3><b>zaterdag - zondag</b></h3>
       <ion-button shape="round" size="default" color="danger" slot="end" (click)="openAddScheduleModal('weekend')"><ion-icon name="add"></ion-icon></ion-button>

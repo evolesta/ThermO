@@ -9,21 +9,23 @@ class Command(BaseCommand):
         settings = Setting.objects.get(pk=1)
         currentDateTime = datetime.now()
 
-        if settings.scheduleGrouped:
-            # grouped week schedule           
-            # if weekday mon-fri
-            if currentDateTime.isoweekday() <= 5:
-                schedules = GroupedWeekSchedule.objects.filter(group='weekday')
-                self.scheduler(schedules)
+        if settings.scheduleEnabled:
 
-            # if weekday is sat-sun
-            if currentDateTime.isoweekday() > 5 and currentDateTime.isoweekday() <= 7:
-                schedules = GroupedWeekSchedule.objects.filter(group='weekend')
+            if settings.scheduleGrouped:
+                # grouped week schedule           
+                # if weekday mon-fri
+                if currentDateTime.isoweekday() <= 5:
+                    schedules = GroupedWeekSchedule.objects.filter(group='weekday')
+                    self.scheduler(schedules)
+
+                # if weekday is sat-sun
+                if currentDateTime.isoweekday() > 5 and currentDateTime.isoweekday() <= 7:
+                    schedules = GroupedWeekSchedule.objects.filter(group='weekend')
+                    self.scheduler(schedules)
+            else:
+                # single day schedules
+                schedules = SingleDaySchedule.objects.filter(weekday=currentDateTime.isoweekday())
                 self.scheduler(schedules)
-        else:
-            # single day schedules
-            schedules = SingleDaySchedule.objects.filter(weekday=currentDateTime.isoweekday())
-            self.scheduler(schedules)
 
     def scheduler(self, schedules):
         currentDateTime = datetime.now()

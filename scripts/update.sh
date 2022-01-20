@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # global vars paths
-REPODIR=/home/erik/ThermO/ThermO
+REPODIR=/home/erik/ThermO
 DJANGODIR=/var/www/api
 IONICDIR=/var/www/front-end
 
@@ -10,14 +10,14 @@ echo "Updates the ThermO Django API and compiles the Ionic Front-end to destinat
 
 read -p "Before we proceed, did you update the local repo with git pull? [y/n]" yn
 case $yn in 
-    [Nn]*) echo "Please do before continueing!" exit;;
+    [Nn]*) exit;;
     [Yy]*) ;;
     *) echo "Please enter yes or no";;
 esac
 
 read -p "And did you adjusted the right API URL in ThermO-Frontend/src/app/settings.ts? [y/n]" yn2
 case $yn2 in
-    [Nn]*) echo "Please do before continueing!" exit;;
+    [Nn]*) exit;;
     [Yy]*) ;;
     *) echo "Please enter yes or no";;
 esac
@@ -26,7 +26,7 @@ esac
 # Stop Apache and clear out Ionic dir
 echo "Stopping Apache and clear Ionic folder..."
 service apache2 stop
-rm -r ${IONICDIR}/*
+rm -r -f ${IONICDIR}/*
 
 # Copy overwrite Django files
 echo "Overwrite Django project folder files..."
@@ -42,6 +42,7 @@ python3 manage.py migrate
 
 # Compile Ionic prod release
 echo "Compiling new Ionic production release..."
+echo "This can take a few minutes..."
 cd ${REPODIR}/ThermO-Frontend/
 ionic build --prod
 

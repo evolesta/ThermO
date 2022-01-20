@@ -1,6 +1,6 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { ModalController, ToastController } from '@ionic/angular';
+import { AlertController, ModalController, ToastController } from '@ionic/angular';
 import { HttpService } from '../http.service';
 import { AddSchedulePage } from './add-schedule/add-schedule.page';
 import { EditSchedulePage } from './edit-schedule/edit-schedule.page';
@@ -25,15 +25,18 @@ export class SchedulePage implements OnInit {
   public sensorsData: any;
   public start: any;
   public end: any;
+  public scheduleEnabled: any;
   public model: GroupedDaysView = new GroupedDaysView();
 
   constructor(private http: HttpService,
     private datepipe: DatePipe,
     private modalController: ModalController,
-    private toastController: ToastController) { }
+    private toastController: ToastController,
+    private alertController: AlertController) { }
 
   ngOnInit() {
     this.getSchedule();
+    this.getSettings();
   }
 
   getSchedule()
@@ -49,8 +52,24 @@ export class SchedulePage implements OnInit {
 
         this.http.get(url).subscribe(resp => {
           this.scheduleData = resp.body;
-          console.log(this.scheduleData)
         });
+    });
+  }
+
+  getSettings() {
+    this.http.get('/settings/').subscribe(resp => {
+      const response:any = resp.body;
+      this.scheduleEnabled = response.scheduleEnabled;
+
+      if (!this.scheduleEnabled) {
+        this.alertController.create({
+          header: 'Schema niet actief',
+          message: 'Het schema is niet actief, en wordt daarom niet gevolgd. Om het schema te kunnen instellen dien je deze eerst te activeren.',
+          buttons: ['OK']
+        }).then(alert => {
+          alert.present();
+        });
+      }
     });
   }
 

@@ -180,6 +180,33 @@ sudo chmod +x /var/www/api/crontab.sh
 
 To test the commands, you can open a cron job and hit the **run now** button. The checkTemperature script will output data.
 
+## Updating procedure
+I made a simple bash update script which does this procedure for you. It copies the updated projects to your directories, migrate the database if necessary and compiles a new Ionic front-end release.
+
+1. Get the latest version from Git (or else)
+```
+cd /your/repo
+git pull
+```
+
+2. Modify variables to match your dirs: `sudo nano /your/repo/scripts/update.sh`
+```
+#!/bin/bash
+
+# global vars paths
+REPODIR=/your/repo #the local repository location where to work from
+DJANGODIR=/var/www/api #Django production path
+IONICDIR=/var/www/front-end #Your front-end serving path
+```
+
+3. Give the script execute permissions and run the script:
+```
+sudo chmod +x /your/repo/scripts/update.sh
+sudo bash /your/repo/scripts/update.sh
+```
+
+The script will handle the update process for you. Make sure to run as sudo or root! It needs to stop and start Apache, which fails without sudo permissions.
+
 ## Front-end webapp
 You could use the Front-end GUI webapp to easy manage your server back-end, without making the calls yourself. 
 The front-end app is written in Ionic with Angular. Ionic supports multi-platform deployment, so your also able to compile a Android or IOs app.

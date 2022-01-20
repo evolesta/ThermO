@@ -37,6 +37,7 @@ class Setting(models.Model):
     defaultBoilerTemp = models.FloatField()
     defaultSensor = models.IntegerField(default=0)
     scheduleGrouped = models.BooleanField(default=True)
+    scheduleEnabled = models.BooleanField(default=True)
     heatpointThreshold = models.FloatField(default=0)
 
 class SingleDaySchedule(models.Model):
