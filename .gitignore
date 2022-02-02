@@ -1,15 +1,10 @@
 *.log
 *.pyc
 _pycache_
-Thermo-API/env
+Thermo-API/venv
 ThermO-PI/ThermO/api/__pycache__
 ThermO-API/ThermO/ThermO/__pycache__
 ThermO-API/ThermO/api/__pycache__
 ThermO-API/ThermO/api/migrations/__pycache__
 ThermO-API/ThermO/ThermO/__pycache__
 Thermo-API/ThermO/ThermO/settings.py
-ThermO-APIv2/ThermO/ThermO/settings.py
-ThermO-APIv2/venv
-ThermO-APIv2/ThermO/ThermO/__init__.py
-ThermO-APIv2/ThermO/ThermO/api/migrations/__init__.py
-ThermO-APIv2/ThermO/ThermO/api/__init__.py

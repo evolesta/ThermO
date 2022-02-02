@@ -27,11 +27,10 @@ export class SettingsPage implements OnInit {
       const response:any = resp.body;
       this.model = new Setting(
         response.activeBoiler, 
-        response.defaultBoilerTemp, 
-        response.scheduleGrouped,
-        response.weatherData,
-        response.openWeathermapApikey,
-        response.heatpointThreshold);
+        response.defaultBoilerTemp,
+        response.scheduleGrouped, 
+        response.heatpointThreshold,
+        response.scheduleEnabled);
     })
   }
 
@@ -44,18 +43,6 @@ export class SettingsPage implements OnInit {
 
   saveSettings(formdata: any)
   {
-    // check if the API key field is filled
-    if (formdata.weatherData && formdata.openWeathermapApikey == "") {
-      this.alertController.create({
-        header: 'Geen API key ingevuld',
-        message: 'Wanneer de weerdata geactiveerd wordt, moet er een geldige API key ingevuld worden. Vraag een gratis key aan op https://openweathermap.org.',
-        buttons: ['OK']
-      }).then(alert => {
-        alert.present();
-      });
-    }
-    else {
-      console.log(formdata)
       this.http.put('/settings/1/', formdata).subscribe(resp => {
         this.toastController.create({
           message: 'Instellingen succesvol opgeslagen.',
@@ -65,7 +52,6 @@ export class SettingsPage implements OnInit {
           toastRes.present();
         });
       });
-    }
   }
 
   showInfoToast(message: string) {
@@ -91,8 +77,6 @@ class Setting
   constructor(public activeBoiler: number = 0,
     public defaultBoilerTemp: number = 0,
     public scheduleGrouped: boolean = true,
-    public weatherData: boolean = false,
-    public openWeathermapApikey: string = '',
     public heatpointThreshold: number = 0,
-    public weatherCity: string = '') {}
+    public scheduleEnabled: boolean = true) {}
 }

@@ -1,4 +1,5 @@
 from dataclasses import fields
+from django.http import request
 from rest_framework import serializers
 from rest_framework.utils import field_mapping
 from .models import *
@@ -27,7 +28,7 @@ class SingleDayScheduleSerializer(serializers.ModelSerializer):
 
     def to_representation(self, instance):
         response = super().to_representation(instance)
-        response['sensor'] = SensorsSerializer(instance.sensor).data
+        response['sensor'] = SensorsSerializer(instance.sensor, context=self.context).data
         return response 
 
 class GroupedWeekScheduleSerializer(serializers.ModelSerializer):
@@ -37,7 +38,7 @@ class GroupedWeekScheduleSerializer(serializers.ModelSerializer):
 
     def to_representation(self, instance):
         response = super().to_representation(instance)
-        response['sensor'] = SensorsSerializer(instance.sensor).data
+        response['sensor'] = SensorsSerializer(instance.sensor, context=self.context).data
         return response 
 
 class SettingSerializer(serializers.ModelSerializer):

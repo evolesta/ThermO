@@ -7,16 +7,15 @@ import { AuthService } from './login/auth.service';
 import { StorageService } from '../storage.service';
 import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
-import { APIURL } from '../settings';
-
+import apiurl from '../../assets/config.json';
 
 @Injectable()
 export class httpInterceptor implements HttpInterceptor {
 
     // routes which doesn't require a auth header, for ex. auth routes
     private disallowedRoutes = [
-        APIURL + '/api/token/',
-        APIURL + '/api/token/refresh/'
+        apiurl.apiurl + '/api/token/',
+        apiurl.apiurl + '/api/token/refresh/'
     ];
 
     constructor(private storage: StorageService,

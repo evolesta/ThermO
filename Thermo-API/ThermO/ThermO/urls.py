@@ -30,8 +30,8 @@ router.register(r'boilers', views.BoilersViewSet)
 router.register(r'heatpoint', views.HeatpointViewSet, basename='heatpoint')
 router.register(r'userpincode', views.UserPincodeViewSet, basename='userpincode')
 router.register(r'thermostat-data', views.ThermostatDataViewSet)
-router.register(r'schedule-single', views.SingleDaySchedule)
-router.register(r'schedule-grouped', views.GroupedWeekSchedule)
+router.register(r'schedule-single', views.SingleDayScheduleViewSet)
+router.register(r'schedule-grouped', views.GroupedWeekScheduleViewSet)
 router.register(r'settings', views.SettingViewSet, basename='settings')
 
 urlpatterns = [

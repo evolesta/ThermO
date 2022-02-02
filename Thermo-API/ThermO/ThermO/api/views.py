@@ -57,12 +57,12 @@ class HeatpointViewSet(viewsets.ViewSet):
         else:
             return Response(serializer.errors)
 
-class SingleDaySchedule(viewsets.ModelViewSet):
+class SingleDayScheduleViewSet(viewsets.ModelViewSet):
     queryset = SingleDaySchedule.objects.order_by('start').all()
     serializer_class = SingleDayScheduleSerializer
     permission_classes = [IsAuthenticated]
 
-class GroupedWeekSchedule(viewsets.ModelViewSet):
+class GroupedWeekScheduleViewSet(viewsets.ModelViewSet):
     queryset = GroupedWeekSchedule.objects.order_by('start').all()
     serializer_class = GroupedWeekScheduleSerializer
     permission_classes = [IsAuthenticated]

@@ -28,6 +28,11 @@
 
     </ion-item>
     <ion-item>
+      <ion-label>Schema ingeschakeld</ion-label>
+      <ion-note>Wanneer actief zal op de tijdstippen in het schema de temp. worden gewijzigd</ion-note>
+      <ion-toggle name="scheduleEnabled" value="True" [(ngModel)]="model.scheduleEnabled"></ion-toggle>
+    </ion-item>
+    <ion-item>
       <ion-label>Gegroepeerd weekschema</ion-label>
       <ion-note>Configureer het weekschema per weekdeel (ma-vrij/za-zo) of per dag</ion-note>
       <ion-toggle name="scheduleGrouped" value="True" [(ngModel)]="model.scheduleGrouped"></ion-toggle>
