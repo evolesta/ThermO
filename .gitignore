@@ -2,9 +2,9 @@
 *.pyc
 _pycache_
 Thermo-API/venv
-ThermO-PI/ThermO/api/__pycache__
-ThermO-API/ThermO/ThermO/__pycache__
+ThermO-API/ThermO/api/__pycache__
 ThermO-API/ThermO/api/__pycache__
 ThermO-API/ThermO/api/migrations/__pycache__
 ThermO-API/ThermO/ThermO/__pycache__
 Thermo-API/ThermO/ThermO/settings.py
+ThermO-Frontend/www

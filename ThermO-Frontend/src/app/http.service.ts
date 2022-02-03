@@ -1,16 +1,17 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import apiurl from '../assets/config.json';
+import { Injectable, OnInit } from '@angular/core';
+import config from 'config.json';
 
 @Injectable({
   providedIn: 'root'
 })
 export class HttpService {
-  accessToken;
-  public APIURL = apiurl.apiurl;
+  APIURL: string;
 
   constructor(private http: HttpClient) 
-    { }
+    {
+      this.APIURL = config.apiurl;
+    }
 
   public get(endpoint: string)
   {

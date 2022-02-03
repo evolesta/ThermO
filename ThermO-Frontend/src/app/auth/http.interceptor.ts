@@ -7,7 +7,7 @@ import { AuthService } from './login/auth.service';
 import { StorageService } from '../storage.service';
 import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
-import apiurl from '../../assets/config.json';
+import apiurl from 'config.json';
 
 @Injectable()
 export class httpInterceptor implements HttpInterceptor {
@@ -18,9 +18,7 @@ export class httpInterceptor implements HttpInterceptor {
         apiurl.apiurl + '/api/token/refresh/'
     ];
 
-    constructor(private storage: StorageService,
-        private auth: AuthService,
-        private router: Router) 
+    constructor(private storage: StorageService,) 
         { }
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
