@@ -1,21 +1,20 @@
 // JWT interceptor
 import { Injectable } from '@angular/core';
-import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor, HttpErrorResponse } from '@angular/common/http';
-import { EMPTY, from, Observable, throwError } from 'rxjs';
-import { catchError, switchMap } from 'rxjs/operators'
-import { AuthService } from './login/auth.service';
+import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor } from '@angular/common/http';
+import { EMPTY, from, Observable } from 'rxjs';
+import { switchMap } from 'rxjs/operators'
 import { StorageService } from '../storage.service';
-import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
-import apiurl from 'config.json';
+import { environment } from 'src/environments/environment';
 
 @Injectable()
 export class httpInterceptor implements HttpInterceptor {
+    private APIURL = environment.apiUrl;
 
     // routes which doesn't require a auth header, for ex. auth routes
     private disallowedRoutes = [
-        apiurl.apiurl + '/api/token/',
-        apiurl.apiurl + '/api/token/refresh/'
+        this.APIURL + '/api/token/',
+        this.APIURL + '/api/token/refresh/'
     ];
 
     constructor(private storage: StorageService,) 

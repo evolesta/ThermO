@@ -15,12 +15,7 @@ case $yn in
     *) echo "Please enter yes or no";;
 esac
 
-read -p "And did you adjusted the right API URL in ThermO-Frontend/src/app/settings.ts? [y/n]" yn2
-case $yn2 in
-    [Nn]*) exit;;
-    [Yy]*) ;;
-    *) echo "Please enter yes or no";;
-esac
+read -p "Please supply the full API url (ex. https://application.com/api):" apiurl
 
 # ThermO update script
 # Stop Apache and clear out Ionic dir
@@ -41,6 +36,9 @@ python3 manage.py makemigrations
 python3 manage.py migrate
 
 # Compile Ionic prod release
+echo "Apply the correct API url in environment file before compiling..."
+sed -i 's/http://localhost:8000/' + ${apiurl} ${REPODIR}/ThermO-Frontend/src/app/environments/environment.prod.ts
+
 echo "Compiling new Ionic production release..."
 echo "This can take a few minutes..."
 cd ${REPODIR}/ThermO-Frontend/

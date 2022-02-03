@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, OnInit } from '@angular/core';
-import config from 'config.json';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +10,7 @@ export class HttpService {
 
   constructor(private http: HttpClient) 
     {
-      this.APIURL = config.apiurl;
+      this.APIURL = environment.apiUrl;
     }
 
   public get(endpoint: string)
